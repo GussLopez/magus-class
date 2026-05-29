@@ -6,7 +6,7 @@ import { Input } from "@/src/shared/components/ui/input"
 import { Label } from "@/src/shared/components/ui/label"
 import { Separator } from "@/src/shared/components/ui/separator"
 import { Google } from "@/src/shared/svg/Google"
-import { ArrowUpRight, Eye, EyeClosed, EyeOff } from "lucide-react"
+import { ArrowUpRight, Eye, EyeOff } from "lucide-react"
 import Link from "next/link"
 import { useState } from "react"
 
@@ -75,7 +75,7 @@ export default function RegisterForm() {
       <div className="flex justify-center gap-2 text-muted-foreground">
         Ya tienes cuenta?
         <span className="flex items-center gap-0.5 font-medium text-primary group">
-          <Link href={'/auth/register'}>Inicia sesión</Link>
+          <Link href={'/auth/login'}>Inicia sesión</Link>
           <ArrowUpRight className="size-3 stroke-3 group-hover:translate-x-0.5 transition-transform" />
         </span>
       </div>
