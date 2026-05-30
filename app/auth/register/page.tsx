@@ -8,7 +8,7 @@ export default function RegisterPage() {
       <div className="flex flex-col items-center gap-2">
         <div>
           <Image
-            src={'/img/logo.png'}
+            src={'/img/logo.svg'}
             alt="Magus Logo"
             width={100}
             height={100}

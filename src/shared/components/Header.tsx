@@ -10,7 +10,7 @@ export default function Header() {
         {/* LOGO */}
         <div className="flex items-center justify-center md:justify-start gap-3">
           <Image
-            src="/images/logo.png"
+            src="/img/logo.png"
             alt="Logo"
             width={40}
             height={40}
