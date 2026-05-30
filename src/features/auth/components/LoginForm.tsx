@@ -43,7 +43,6 @@ export default function LoginForm() {
     });
 
     if (error) {
-      console.log(error);
       setLoading(false);
 
       if (error.message === "Invalid login credentials") {
@@ -84,7 +83,6 @@ export default function LoginForm() {
       title: 'Correo de confirmación enviado'
     })
   }
-  console.log(initalValues.email);
   return (
     <form
       className="mt-6 space-y-5"
