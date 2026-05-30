@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/src/shared/components/app-sidebar"
+import { AppSidebar } from "@/src/features/dashboard/components/dashboard-sidebar"
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "@/src/shared/components/ui/breadcrumb"
 import { Separator } from "@/src/shared/components/ui/separator"
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/src/shared/components/ui/sidebar"
