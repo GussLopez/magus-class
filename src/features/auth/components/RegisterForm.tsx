@@ -47,12 +47,14 @@ export default function RegisterForm() {
       options: {
         data: {
           name,
-          email
-        }
+          email,
+        },
+        emailRedirectTo: `${window.location.origin}/auth/callback`
       }
     })
     setLoading(false);
     if (error) {
+      console.log(error);
       sileo.error({
         title: 'Error al registrarte',
         description: 'Ocurrio un error al registrarte, intenta más tarde'
