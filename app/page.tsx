@@ -125,11 +125,13 @@ export default function Page() {
             description="Genera tarjetas automáticas."
           />
 
-          <FeatureCard
-            icon={<GraduationCap size={35} />}
-            title="Exámenes"
-            description="Crea quizzes y prácticas."
-          />
+          <a href="/dashboard/examenes">
+            <FeatureCard
+              icon={<GraduationCap size={35} />}
+              title="Exámenes"
+              description="Crea quizzes y prácticas."
+            />
+          </a>
 
           <FeatureCard
             icon={<LayoutDashboard size={35} />}
