@@ -48,6 +48,10 @@ const data = {
         {
           title: "Archivos",
           url: "/dashboard/archivos",
+        },
+        {
+          title: "Examenes",
+          url: "/dashboard/examenes",
         }
       ],
     },
