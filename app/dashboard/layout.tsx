@@ -1,3 +1,4 @@
+import SessionListener from "@/src/features/auth/components/SessionListener"
 import { DashboardSidebar } from "@/src/features/dashboard/components/dashboard-sidebar"
 import ProfileDropdown from "@/src/features/dashboard/components/profile-dropdown"
 import SidebarBreadcrumb from "@/src/features/dashboard/components/sidebar-breadcrumb"
@@ -18,6 +19,7 @@ export default function DashboardLayout({
   return (
     <SidebarProvider>
       <DashboardSidebar />
+      <SessionListener />
       <SidebarInset>
         <header className="flex h-16 shrink-0 justify-between items-center gap-2 border-b px-4">
           <div className="flex items-center gap-2">
