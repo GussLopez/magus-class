@@ -11,8 +11,8 @@ export default function LoginPage() {
           <Image
             src={'/img/logo.svg'}
             alt="Magus Logo"
-            width={100}
-            height={100}
+            width={50}
+            height={50}
           />
         </div>
         <h1 className="text-2xl font-semibold mt-4">Bienvenido de Nuevo</h1>
