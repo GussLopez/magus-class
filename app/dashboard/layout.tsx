@@ -1,4 +1,4 @@
-import { AppSidebar } from "@/src/features/dashboard/components/dashboard-sidebar"
+import { DashboardSidebar } from "@/src/features/dashboard/components/dashboard-sidebar"
 import ProfileDropdown from "@/src/features/dashboard/components/profile-dropdown"
 import SidebarBreadcrumb from "@/src/features/dashboard/components/sidebar-breadcrumb"
 import { Separator } from "@/src/shared/components/ui/separator"
@@ -17,7 +17,7 @@ export default function DashboardLayout({
 
   return (
     <SidebarProvider>
-      <AppSidebar />
+      <DashboardSidebar />
       <SidebarInset>
         <header className="flex h-16 shrink-0 justify-between items-center gap-2 border-b px-4">
           <div className="flex items-center gap-2">
