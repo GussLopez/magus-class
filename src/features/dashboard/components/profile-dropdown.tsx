@@ -5,6 +5,7 @@ import { Button } from "@/src/shared/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/src/shared/components/ui/dropdown-menu";
 import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client";
 import { ChevronsUpDown, HelpCircle, LogOut, Settings, UserCircle2 } from "lucide-react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { sileo } from "sileo";
 
@@ -54,10 +55,13 @@ export default function ProfileDropdown() {
             <span className="text-xs text-muted-foreground">username@gmail.com</span>
           </div>
         </div>
+        <DropdownMenuSeparator />
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            <UserCircle2 />
-            Perfil
+          <DropdownMenuItem asChild>
+            <Link href={'/dashboard/perfil'}>
+              <UserCircle2 />
+              Perfil
+            </Link>
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
