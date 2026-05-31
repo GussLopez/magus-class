@@ -1,23 +1,45 @@
+'use client'
+
 import { Avatar, AvatarFallback, AvatarImage } from "@/src/shared/components/ui/avatar";
 import { Button } from "@/src/shared/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/src/shared/components/ui/dropdown-menu";
+import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client";
 import { ChevronsUpDown, HelpCircle, LogOut, Settings, UserCircle2 } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { sileo } from "sileo";
 
 export default function ProfileDropdown() {
+  const supabase = getSupabaseBrowserClient();
+  const router = useRouter();
 
+  const signOut = async () => {
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      sileo.error({
+        title: 'Error al cerrar la sesión',
+        description: 'Ocurrió un error al cerrar la sesión, por favor intenta más tarde'
+      });
+      return;
+    }
+
+    router.push('/auth/login');
+  }
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           variant={'outline'}
-          className="gap-2"
+          className="gap-5"
           size={'sm'}
         >
-          <Avatar className="size-4">
-            <AvatarImage src="/img/avatar/robot.png" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-          <span>Username</span>
+          <div className="flex items-center gap-1.5">
+            <Avatar className="size-4">
+              <AvatarImage src="/img/avatar/robot.png" />
+              <AvatarFallback>CN</AvatarFallback>
+            </Avatar>
+            <span>Username</span>
+          </div>
           <ChevronsUpDown />
         </Button>
       </DropdownMenuTrigger>
@@ -50,7 +72,7 @@ export default function ProfileDropdown() {
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
-        <DropdownMenuItem variant="destructive">
+        <DropdownMenuItem variant="destructive" onClick={signOut}>
           <LogOut />
           Cerrar sesión
         </DropdownMenuItem>
