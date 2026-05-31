@@ -3,6 +3,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/src/shared/components/ui/avatar";
 import { Button } from "@/src/shared/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/src/shared/components/ui/dropdown-menu";
+import { useUserStore } from "@/src/shared/store/UserStore";
 import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client";
 import { ChevronsUpDown, HelpCircle, LogOut, Settings, UserCircle2 } from "lucide-react";
 import Link from "next/link";
@@ -12,6 +13,7 @@ import { sileo } from "sileo";
 export default function ProfileDropdown() {
   const supabase = getSupabaseBrowserClient();
   const router = useRouter();
+  const user = useUserStore();
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
@@ -35,24 +37,24 @@ export default function ProfileDropdown() {
           size={'sm'}
         >
           <div className="flex items-center gap-1.5">
-            <Avatar className="size-4">
-              <AvatarImage src="/img/avatar/robot.png" />
+            <Avatar className="size-5">
+              <AvatarImage src={user.avatar_url!} />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
-            <span>Username</span>
+            <span>{user.name}</span>
           </div>
           <ChevronsUpDown />
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="w-54">
-        <div className="flex items-center gap-3 px-1 py-1.5">
+      <DropdownMenuContent align="end" className="w-62">
+        <div className="flex items-center gap-3 px-2 py-1.5">
           <Avatar className="size-8">
-            <AvatarImage src="/img/avatar/robot.png" />
+            <AvatarImage src={user.avatar_url!} />
             <AvatarFallback>CN</AvatarFallback>
           </Avatar>
-          <div className="flex flex-col">
-            <span className="text-sm font-medium text-foreground">Username</span>
-            <span className="text-xs text-muted-foreground">username@gmail.com</span>
+          <div className="flex flex-col overflow-hidden">
+            <span className="text-sm font-medium text-foreground">{user.name}</span>
+            <span className="text-xs text-muted-foreground truncate">{user.email}</span>
           </div>
         </div>
         <DropdownMenuSeparator />
