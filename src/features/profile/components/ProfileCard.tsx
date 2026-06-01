@@ -4,8 +4,9 @@ import { Avatar, AvatarImage } from "@/src/shared/components/ui/avatar"
 import { useUserStore } from "@/src/shared/store/UserStore"
 import { useQuery } from "@tanstack/react-query"
 import { ProfileData } from "../types/profile.types";
-import { Calendar, ImagePlus, Pencil, PencilLineIcon } from "lucide-react";
+import { Calendar, PencilLineIcon } from "lucide-react";
 import { Button } from "@/src/shared/components/ui/button";
+import ProfileCardSkeleton from "./ProfileCardSkeleton";
 
 export default function ProfileCard() {
   const userId = useUserStore(state => state.id);
@@ -26,14 +27,15 @@ export default function ProfileCard() {
       year: "numeric",
     }).format(new Date(data.created_at))
     : "";
+
+  if (isLoading) return <ProfileCardSkeleton />
   return (
-    <div className="w-full p-5 mt-5 border border-muted shadow-xs">
+    <div className="w-full p-5 mt-5 border border-muted shadow-xs rounded-md">
       <div className="flex items-center gap-3">
         <div className="relative">
-          <Avatar className="size-16 hover:blur-xs">
+          <Avatar className="size-16">
             <AvatarImage src={data?.avatar_url} />
           </Avatar>
-          
         </div>
         <div className="w-full">
           <div className="flex justify-between items-center">
