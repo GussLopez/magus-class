@@ -6,4 +6,7 @@ export type ProfileData = {
   name: string;
   role: string;
   tenant_id: string;
+  last_name: string;
+  age: number;
+  sex: string;
 };
