@@ -99,9 +99,9 @@ export default function LoginForm() {
         </Button>
       </div>
       <div className="flex justify-center gap-5 items-center overflow-hidden">
-        <Separator className="w-full bg-neutral-100" />
+        <Separator className="w-full bg-accent" />
         <span className="shrink-0 text-xs text-muted-foreground/60">o continua con tu e-mail</span>
-        <Separator className="w-full bg-neutral-100" />
+        <Separator className="w-full bg-accent" />
       </div>
       {authError && (
         <div className="p-3 text-sm font-medium text-red-600 bg-red-50 border border-red-200 rounded-md">

@@ -5,7 +5,8 @@ import { Button } from "@/src/shared/components/ui/button";
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from "@/src/shared/components/ui/dropdown-menu";
 import { useUserStore } from "@/src/shared/store/UserStore";
 import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client";
-import { ChevronsUpDown, HelpCircle, LogOut, Settings, UserCircle2 } from "lucide-react";
+import { ChevronsUpDown, HelpCircle, LogOut, Moon, Settings, Sun, UserCircle2 } from "lucide-react";
+import { useTheme } from "next-themes";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { sileo } from "sileo";
@@ -14,6 +15,7 @@ export default function ProfileDropdown() {
   const supabase = getSupabaseBrowserClient();
   const router = useRouter();
   const user = useUserStore();
+  const { theme, setTheme } = useTheme();
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut();
@@ -75,6 +77,12 @@ export default function ProfileDropdown() {
           <DropdownMenuItem>
             <HelpCircle />
             Ayuda
+          </DropdownMenuItem>
+          <DropdownMenuItem
+            onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+          >
+            {theme === 'dark' ? <Sun /> : <Moon />}
+            Camibar Tema
           </DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
