@@ -11,6 +11,7 @@ interface UserState {
     name: string;
     avatar_url: string;
   }) => void;
+  setAvatar: (avatar: string) => void;
   clearUser: () => void;
 }
 
@@ -27,6 +28,9 @@ export const useUserStore = create<UserState>((set) => ({
       email: user.email,
       avatar_url: user.avatar_url,
     });
+  },
+  setAvatar: (avatar) => {
+    set({ avatar_url: avatar });
   },
   clearUser: () => {
     set({
