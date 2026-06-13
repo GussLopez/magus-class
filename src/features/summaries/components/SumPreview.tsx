@@ -1,3 +1,4 @@
+import { Button } from "@/src/shared/components/ui/button";
 import { Sparkles, Copy, Download, FileText } from "lucide-react";
 
 export default function SumPreview() {
@@ -14,15 +15,15 @@ export default function SumPreview() {
         </div>
 
         <div className="flex gap-3">
-          <button className="flex items-center gap-2 rounded-xl border border-white/10 px-5 py-3 hover:bg-white/5">
+          <Button variant={'outline'}>
             <Copy className="h-4 w-4" />
             Copiar
-          </button>
+          </Button>
 
-          <button className="flex items-center gap-2 rounded-xl border border-white/10 px-5 py-3 hover:bg-white/5">
+          <Button variant={'outline'}>
             <Download className="h-4 w-4" />
             PDF
-          </button>
+          </Button>
         </div>
       </div>
 
