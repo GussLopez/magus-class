@@ -34,13 +34,13 @@ export default function Header() {
         {/* BOTONES */}
         
         <div className="flex justify-center md:justify-end gap-3 flex-wrap">
-          <a href="/login">
+          <a href="/auth/login">
           <button className="bg-cyan-500 hover:bg-cyan-400 transition px-4 py-2 rounded-xl font-semibold text-sm md:text-base">
             Iniciar sesión
           </button>
           </a>
 
-          <a href="/register">
+          <a href="/auth/register">
             <button className="border border-white/20 hover:bg-white/10 transition px-4 py-2 rounded-xl font-semibold text-sm md:text-base">
               Registrarse
             </button>
