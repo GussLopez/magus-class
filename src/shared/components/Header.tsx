@@ -1,12 +1,13 @@
 "use client";
 
 import Image from "next/image";
+import { Button } from "./ui/button";
 
 export default function Header() {
   return (
     <header className="w-full border-b border-white/10 backdrop-blur-md">
       <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-5 px-4 md:px-12 py-4">
-        
+
         {/* LOGO */}
         <div className="flex items-center justify-center md:justify-start gap-3">
           <Image
@@ -32,19 +33,19 @@ export default function Header() {
         </nav>
 
         {/* BOTONES */}
-        
-        <div className="flex justify-center md:justify-end gap-3 flex-wrap">
-          <a href="/auth/login">
-          <button className="bg-cyan-500 hover:bg-cyan-400 transition px-4 py-2 rounded-xl font-semibold text-sm md:text-base">
-            Iniciar sesión
-          </button>
-          </a>
 
-          <a href="/auth/register">
-            <button className="border border-white/20 hover:bg-white/10 transition px-4 py-2 rounded-xl font-semibold text-sm md:text-base">
-              Registrarse
-            </button>
-          </a>
+        <div className="flex justify-center md:justify-end gap-3 flex-wrap">
+          <Button asChild>
+            <a href="/auth/login">
+              Iniciar Sesión
+            </a>
+          </Button>
+
+          <Button variant={'outline'} asChild>
+            <a href="/auth/register">
+              Registrarte
+            </a>
+          </Button>
         </div>
       </div>
     </header>
