@@ -21,10 +21,10 @@ export default function SumConfig() {
 
       <Textarea
         placeholder="Agrega instrucciones adicionales para personalizar el resumen..."
-        className="min-h-32 w-full resize-none"
+        className="min-h-32 w-full resize-none border-muted"
       />
 
-      <label className="mb-2 mt-5 block text-sm text-blue-100/80">
+      <label className="mb-2 mt-5 block text-sm text-muted-foreground">
         Longitud del resumen
       </label>
 
@@ -44,26 +44,26 @@ export default function SumConfig() {
       </div>
 
       <div className="mt-6">
-        <h3 className="mb-4 text-sm text-blue-100/80">
+        <h3 className="mb-4 text-sm text-muted-foreground">
           Incluir en el resumen
         </h3>
 
         <div className="space-y-4">
           <label className="flex items-center gap-3">
             <Checkbox defaultChecked />
-            <List className="h-4 w-4 text-blue-400" />
+            <List className="h-4 w-4 text-primary" />
             <span>Puntos clave</span>
           </label>
 
           <label className="flex items-center gap-3">
             <Checkbox defaultChecked />
-            <HelpCircle className="h-4 w-4 text-blue-400" />
+            <HelpCircle className="h-4 w-4 text-primary" />
             <span>Preguntas de examen</span>
           </label>
 
           <label className="flex items-center gap-3">
             <Checkbox defaultChecked />
-            <Layers className="h-4 w-4 text-blue-400" />
+            <Layers className="h-4 w-4 text-primary" />
             <span>Flashcards</span>
           </label>
         </div>
