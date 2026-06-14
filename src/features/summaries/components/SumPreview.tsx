@@ -37,9 +37,9 @@ export default function SumPreview() {
           Aún no hay un resumen generado
         </h3>
 
-        <p className="mt-4 max-w-lg text-lg text-blue-100/60">
+        <p className="mt-4 max-w-lg text-lg text-muted-foreground">
           Configura las opciones de la izquierda y haz clic en
-          <span className="font-medium text-blue-300">
+          <span className="font-medium text-primary">
             {" "}
             "Generar resumen"
           </span>{" "}
