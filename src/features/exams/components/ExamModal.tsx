@@ -44,8 +44,8 @@ export default function ExamModal({
     <Dialog open={open} onOpenChange={() => setOpen(false)}>
       <DialogContent className="min-w-4xl">
         <DialogHeader>
-          <DialogTitle className="text-2xl font-bold text-white">{exam.title}</DialogTitle>
-          <DialogDescription className="text-sm text-blue-100/60 mt-1">
+          <DialogTitle>{exam.title}</DialogTitle>
+          <DialogDescription>
             {exam.questions.length} preguntas • {exam.pdfSource}
           </DialogDescription>
 
@@ -66,7 +66,7 @@ export default function ExamModal({
                 </span>
               </div>
               <div className="flex items-center gap-2 bg-blue-600/20 px-4 py-2 rounded-xl border border-blue-500/30">
-                <Clock className="h-5 w-5 text-blue-400" />
+                <Clock className="h-5 w-5 text-primary" />
                 <span className="text-white">{exam.completionTime}</span>
               </div>
             </div>
@@ -87,7 +87,7 @@ export default function ExamModal({
                       ? isCorrect
                         ? "border-green-500/30 bg-green-600/10"
                         : "border-red-500/30 bg-red-600/10"
-                      : "border-white/10 bg-white/5"
+                      : "border-input bg-muted/20"
                   )}
                 >
                   <div className="flex items-start gap-4 mb-4">
@@ -98,12 +98,12 @@ export default function ExamModal({
                           ? isCorrect
                             ? "bg-green-600/30 text-green-300"
                             : "bg-red-600/30 text-red-300"
-                          : "bg-blue-600/30 text-blue-300"
+                          : "bg-primary/30 text-primary"
                       )}
                     >
                       {qIndex + 1}
                     </span>
-                    <p className="text-lg text-white font-medium">
+                    <p className="text-lg font-medium">
                       {question.question}
                     </p>
                   </div>
@@ -113,7 +113,7 @@ export default function ExamModal({
                       const isSelected = userAnswer === oIndex;
                       const isCorrectOption = question.correctAnswer === oIndex;
 
-                      let optionStyles = "border-white/10 bg-white/5 hover:bg-white/10";
+                      let optionStyles = "border-input bg-background hover:bg-primary/10";
 
                       if (isReviewing) {
                         if (isCorrectOption) {
@@ -121,7 +121,7 @@ export default function ExamModal({
                         } else if (isSelected && !isCorrectOption) {
                           optionStyles = "border-red-500/50 bg-red-600/20";
                         } else {
-                          optionStyles = "border-white/10 bg-white/5 opacity-60";
+                          optionStyles = "border-input bg-white/5 opacity-60";
                         }
                       } else if (isSelected) {
                         optionStyles = "border-blue-500/50 bg-blue-600/20";
@@ -147,7 +147,7 @@ export default function ExamModal({
                                   ? "border-red-400 text-red-400"
                                   : isSelected
                                     ? "border-blue-400 text-blue-400 bg-blue-600/30"
-                                    : "border-white/30 text-white/60"
+                                    : "border-white/30"
                             )}
                           >
                             {String.fromCharCode(65 + oIndex)}
@@ -156,10 +156,10 @@ export default function ExamModal({
                             className={cn(
                               "text-sm",
                               isReviewing && isCorrectOption
-                                ? "text-green-300 font-medium"
+                                ? "text-green-500 dark:text-green-300 font-medium"
                                 : isReviewing && isSelected && !isCorrectOption
-                                  ? "text-red-300"
-                                  : "text-white"
+                                  ? "text-red-500 dark:text-red-400"
+                                  : ""
                             )}
                           >
                             {option}
@@ -179,8 +179,8 @@ export default function ExamModal({
             })}
           </div>
         </div>
-        <DialogFooter className="flex items-center gap-5 justify-between p-6 border-t border-white/10 bg-white/5">
-          <div className="flex items-center gap-2 text-sm text-blue-100/60">
+        <DialogFooter className="flex items-center gap-5 justify-between p-6 border-t border-input bg-muted">
+          <div className="flex items-center gap-2 text-sm text-muted-foreground">
             <Target className="h-4 w-4" />
             <span>
               {Object.keys(answers).length}/{exam.questions.length} respondidas
