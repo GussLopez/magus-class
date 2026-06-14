@@ -5,16 +5,16 @@ export default function SumFont() {
   return (
     <div className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl">
       <div className="mb-5 flex items-center gap-3">
-        <Folder className="h-5 w-5 text-blue-400" />
+        <Folder className="h-5 w-5 text-primary" />
 
         <h2 className="text-xl font-semibold">
           Fuente
         </h2>
       </div>
 
-      <div className="space-y-4 text-blue-100/80">
+      <div className="space-y-4 text-muted-foreground">
         <p>
-          <span className="text-blue-400">Tema:</span>{" "}
+          <span className="text-primary">Tema:</span>{" "}
           Introducción a IA
         </p>
 
