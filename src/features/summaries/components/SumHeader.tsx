@@ -14,7 +14,7 @@ export default function SumHeader() {
             Generador de Resúmenes
           </h1>
 
-          <p className="mt-2 text-lg text-blue-100/70">
+          <p className="mt-2 text-lg text-muted-foreground">
             Genera un resumen inteligente utilizando el contenido almacenado
             en el RAG.
           </p>
