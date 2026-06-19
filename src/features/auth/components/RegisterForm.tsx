@@ -64,6 +64,19 @@ export default function RegisterForm() {
 
     redirect('/auth/login');
   }
+
+  const signInWithGoogle = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${location.origin}/auth/callback`
+      }
+    });
+
+    if (error) {
+      console.error(error);
+    }
+  }
   return (
     <form
       className="mt-6 space-y-5"
@@ -74,6 +87,7 @@ export default function RegisterForm() {
           variant={'outline'}
           className="w-full gap-3"
           type="button"
+          onClick={signInWithGoogle}
         >
           <Google />
           Continuar con Google
