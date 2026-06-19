@@ -15,6 +15,7 @@ import { useForm } from "react-hook-form"
 import { redirect } from "next/navigation"
 import ErrorMessage from "@/src/shared/components/ui/ErrorMessage"
 import { sileo } from "sileo"
+import { Spinner } from "@/src/shared/components/ui/spinner"
 
 export default function LoginForm() {
   const [loading, setLoading] = useState(false);
@@ -83,6 +84,19 @@ export default function LoginForm() {
       title: 'Correo de confirmación enviado'
     })
   }
+
+  const signInWithGoogle = async () => {
+    const { error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${location.origin}/auth/callback`
+      }
+    })
+
+    if (error) {
+      console.error('Google OAuth error: ', error.message);
+    }
+  }
   return (
     <form
       className="mt-6 space-y-5"
@@ -93,6 +107,7 @@ export default function LoginForm() {
           variant={'outline'}
           className="w-full gap-3"
           type="button"
+          onClick={signInWithGoogle}
         >
           <Google />
           Continuar con Google
@@ -152,8 +167,16 @@ export default function LoginForm() {
         <Link href={'/auth/recover'} className="text-primary">Olvidaste tu contraseña?</Link>
       </div>
 
-      <Button className="w-full">
-        Acceder
+      <Button
+        className="w-full"
+        disabled={loading}
+      >
+        {loading ? (
+          <>
+            <Spinner />
+            Accediendo
+          </>
+        ) : 'Acceder'}
       </Button>
       <div className="flex justify-center gap-2 text-muted-foreground">
         No tienes cuenta?
