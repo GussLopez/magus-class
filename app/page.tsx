@@ -12,6 +12,7 @@ import {
 import Header from "../src/shared/components/Header";
 import Footer from "../src/shared/components/Footer";
 import FeatureCard from "../src/shared/components/FeatureCard";
+import { Button } from "@/src/shared/components/ui/button";
 
 
 export default function Page() {
@@ -21,9 +22,9 @@ export default function Page() {
 
       {/* HERO */}
       <section className="relative px-6 md:px-16 py-24 flex flex-col lg:flex-row items-center justify-between gap-20">
-        <div className="absolute top-0 left-0 w-75 h-75 bg-cyan-500/20 blur-[120px]" />
+        <div className="absolute top-0 left-0 w-75 h-75 bg-cyan-500/40 blur-[120px]" />
 
-        <div className="absolute bottom-0 right-0 w-75 h-75 bg-purple-500/20 blur-[120px]" />
+        <div className="absolute bottom-0 right-0 w-75 h-75 bg-purple-500/40 blur-[120px]" />
 
         {/* Texto */}
         <div className="max-w-2xl relative z-10">
@@ -35,7 +36,7 @@ export default function Page() {
           
           
 
-          <p className="text-gray-300 mt-8 text-lg leading-relaxed">
+          <p className="text-muted-foreground mt-8 text-lg leading-relaxed">
             Sube PDFs, apuntes y presentaciones para generar
             preguntas inteligentes, resúmenes automáticos,
             flashcards y exámenes con IA.
@@ -43,17 +44,17 @@ export default function Page() {
 
           <div className="flex flex-wrap gap-5 mt-10">
             <a href="/login">
-              <button className="bg-cyan-500 hover:bg-cyan-400 transition px-8 py-4 rounded-2xl font-bold">
+              <Button className="px-8 h-13 text-xl rounded-xl">
                 Comenzar
-              </button>
+              </Button>
             </a>
 
           </div>
         </div>
 
         {/* Card */}
-        <div className="relative z-10">
-          <div className="bg-white/10 border border-white/10 backdrop-blur-xl p-8 rounded-3xl w-[350px] shadow-2xl">
+        <div className="relative z-20">
+          <div className="bg-white dark:bg-gray-900 border border-white/10 backdrop-blur-xl p-8 rounded-3xl w-87.5 shadow-2xl z-99">
             <div className="flex items-center gap-3 mb-6">
               <BrainCircuit className="text-cyan-400" size={35} />
 
@@ -62,15 +63,15 @@ export default function Page() {
                   Motor IA RAG
                 </h2>
 
-                <p className="text-gray-400 text-sm">
+                <p className="text-muted-foreground text-sm">
                   Preguntas inteligentes
                 </p>
               </div>
             </div>
 
             <div className="space-y-4">
-              <div className="bg-[#1e293b] p-4 rounded-xl">
-                <p className="text-sm text-gray-400">
+              <div className="bg-muted dark:bg-[#1e293b] p-4 rounded-xl">
+                <p className="text-sm text-muted-foreground">
                   Pregunta:
                 </p>
 
@@ -80,11 +81,11 @@ export default function Page() {
               </div>
 
               <div className="bg-cyan-500/10 border border-cyan-400/20 p-4 rounded-xl">
-                <p className="text-sm text-cyan-300">
+                <p className="text-sm text-cyan-500 dark:text-cyan-300">
                   Respuesta IA:
                 </p>
 
-                <p className="text-sm mt-2 text-gray-200">
+                <p className="text-sm mt-2 text-foreground">
                   Machine Learning es una rama de la IA
                   que aprende automáticamente con datos.
                 </p>
