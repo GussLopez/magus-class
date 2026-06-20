@@ -18,18 +18,18 @@ export default function Header() {
             className="object-contain"
           />
           <a href="/">
-            <h1 className="text-xl md:text-2xl font-bold text-cyan-400">
+            <h1 className="text-xl md:text-2xl font-bold">
               Magus ClassRoom
             </h1>
           </a>
         </div>
 
         {/* NAV */}
-        <nav className="hidden md:flex gap-8 text-sm text-gray-300">
-          <a href="#">Inicio</a>
-          <a href="#">Funciones</a>
-          <a href="#">Dashboard</a>
-          <a href="#">Contacto</a>
+        <nav className="hidden md:flex gap-8 text-sm text-muted-foreground">
+          <a href="/">Inicio</a>
+          <a href="/funciones">Funciones</a>
+          <a href="/dashboard">Dashboard</a>
+          <a href="/contacto">Contacto</a>
         </nav>
 
         {/* BOTONES */}
