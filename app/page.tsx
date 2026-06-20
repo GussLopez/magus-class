@@ -16,14 +16,14 @@ import FeatureCard from "../src/shared/components/FeatureCard";
 
 export default function Page() {
   return (
-    <main className="min-h-screen bg-[#0f172a] text-white overflow-hidden">
+    <main className="min-h-screen dark:bg-[#0f172a] overflow-hidden">
       <Header />
 
       {/* HERO */}
       <section className="relative px-6 md:px-16 py-24 flex flex-col lg:flex-row items-center justify-between gap-20">
-        <div className="absolute top-0 left-0 w-[300px] h-[300px] bg-cyan-500/20 blur-[120px]" />
+        <div className="absolute top-0 left-0 w-75 h-75 bg-cyan-500/20 blur-[120px]" />
 
-        <div className="absolute bottom-0 right-0 w-[300px] h-[300px] bg-purple-500/20 blur-[120px]" />
+        <div className="absolute bottom-0 right-0 w-75 h-75 bg-purple-500/20 blur-[120px]" />
 
         {/* Texto */}
         <div className="max-w-2xl relative z-10">
