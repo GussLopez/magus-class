@@ -12,7 +12,7 @@ export default function FeatureCard({
   description,
 }: Props) {
   return (
-    <div className="bg-white/5 hover:bg-white/10 transition border border-white/10 rounded-3xl p-8 group">
+    <div className="bg-muted/60 hover:bg-muted dark:bg-white/5 dark:hover:bg-white/10 transition border border-white/10 rounded-3xl p-8 group">
       <div className="text-cyan-400 mb-5 group-hover:scale-110 transition">
         {icon}
       </div>
