@@ -17,6 +17,7 @@ export default function ChatTextArea() {
         <Button
           size={'icon-lg'}
           variant={'ghost'}
+          type="button"
           className="bg-muted hover:bg-muted! text-muted-foreground cursor-pointer"
         >
           <Paperclip className="size-4.5" />
@@ -25,6 +26,7 @@ export default function ChatTextArea() {
         <Button
           size={'icon-lg'}
           variant={'ghost'}
+          type="button"
           className="bg-muted hover:bg-muted! text-muted-foreground cursor-pointer group"
         >
           <Send className="size-4.5" />
