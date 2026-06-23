@@ -37,6 +37,10 @@ const data = {
       url: "#",
       items: [
         {
+          title: "Chat",
+          url: "/dashboard/chat",
+        },
+        {
           title: "Resumenes",
           url: "/dashboard/resumenes",
         },
