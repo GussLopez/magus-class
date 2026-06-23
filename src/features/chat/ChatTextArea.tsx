@@ -3,9 +3,11 @@
 import { Button } from "@/src/shared/components/ui/button";
 import { Textarea } from "@/src/shared/components/ui/textarea";
 import { Paperclip, Send } from "lucide-react";
+import { useState } from "react";
 
 export default function ChatTextArea() {
-
+  const [text, setText] = useState('');
+  
   return (
     <form className="relative">
       <Textarea
