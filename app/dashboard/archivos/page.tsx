@@ -1,7 +1,7 @@
 import CreateFile from "@/src/features/files/components/CreateFile"
 import CreateFolder from "@/src/features/files/components/CreateFolder";
 import RecentFiles from "@/src/features/files/components/RecentFiles";
-import { Folder, Plus } from "lucide-react";
+import TableFiles from "@/src/features/files/components/TableFiles";
 
 export default function ArchivosPage() {
 
@@ -13,6 +13,7 @@ export default function ArchivosPage() {
       </div>
       <RecentFiles />
 
+      <TableFiles />
     </main>
   )
 }
