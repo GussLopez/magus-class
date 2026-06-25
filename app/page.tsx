@@ -13,6 +13,7 @@ import Header from "../src/shared/components/Header";
 import Footer from "../src/shared/components/Footer";
 import FeatureCard from "../src/shared/components/FeatureCard";
 import { Button } from "@/src/shared/components/ui/button";
+import Link from "next/link";
 
 
 export default function Page() {
@@ -28,13 +29,13 @@ export default function Page() {
 
         {/* Texto */}
         <div className="max-w-2xl relative z-10">
-          
-            <h1 className="text-5xl md:text-7xl font-extrabold leading-tight">
-              Plataforma Universitaria con
-              <span className="text-cyan-400"> IA</span>
-            </h1>
-          
-          
+
+          <h1 className="text-5xl md:text-7xl font-extrabold leading-tight">
+            Plataforma Universitaria con
+            <span className="text-cyan-400"> IA</span>
+          </h1>
+
+
 
           <p className="text-muted-foreground mt-8 text-lg leading-relaxed">
             Sube PDFs, apuntes y presentaciones para generar
@@ -43,11 +44,14 @@ export default function Page() {
           </p>
 
           <div className="flex flex-wrap gap-5 mt-10">
-            <a href="/login">
-              <Button className="px-8 h-13 text-xl rounded-xl">
+            <Button
+              className="px-8 h-13 text-xl rounded-xl"
+              asChild
+            >
+              <Link href="/auth/login">
                 Comenzar
-              </Button>
-            </a>
+              </Link>
+            </Button>
 
           </div>
         </div>
@@ -126,11 +130,11 @@ export default function Page() {
             description="Genera tarjetas automáticas."
           />
 
-            <FeatureCard
-              icon={<GraduationCap size={35} />}
-              title="Exámenes"
-              description="Crea quizzes y prácticas."
-            />
+          <FeatureCard
+            icon={<GraduationCap size={35} />}
+            title="Exámenes"
+            description="Crea quizzes y prácticas."
+          />
 
           <FeatureCard
             icon={<LayoutDashboard size={35} />}
@@ -147,7 +151,7 @@ export default function Page() {
       </section>
 
       {/* DASHBOARD */}
-      
+
 
       <Footer />
     </main>
