@@ -4,10 +4,19 @@ import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client"
 import { useQuery } from "@tanstack/react-query"
 import { File } from "../files.types"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/src/shared/components/ui/table"
-import { EllipsisVertical, FileText, ListFilter, Search } from "lucide-react"
+import {
+  EllipsisVertical,
+  ExternalLink,
+  FilePen,
+  FileText,
+  ListFilter,
+  Search,
+  Trash2,
+} from "lucide-react";
 import { Button } from "@/src/shared/components/ui/button"
 import { Tabs, TabsList, TabsTab } from "@/src/shared/components/ui/tabs"
 import { Input } from "@/src/shared/components/ui/input"
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/src/shared/components/ui/dropdown-menu"
 
 export default function TableFiles() {
   const supabase = getSupabaseBrowserClient()
@@ -51,7 +60,7 @@ export default function TableFiles() {
         <div className="flex gap-3 max-h-10 overflow-hidden">
           <div className="relative">
             <Search className="absolute top-1/2 -translate-y-1/2 left-2 text-input" />
-            <Input className="h-full py-0 pl-10 border"/>
+            <Input className="h-full py-0 pl-10 border" />
           </div>
 
           <Button variant={'outline'}>
@@ -85,12 +94,34 @@ export default function TableFiles() {
                 <TableCell>{file.file_name}</TableCell>
                 <TableCell>{file.created_at}</TableCell>
                 <TableCell>
-                  <Button
-                    size={'icon'}
-                    variant={'ghost'}
-                  >
-                    <EllipsisVertical />
-                  </Button>
+                  <DropdownMenu>
+                    <DropdownMenuTrigger asChild>
+                      <Button
+                        size={'icon'}
+                        variant={'ghost'}
+                      >
+                        <EllipsisVertical />
+                      </Button>
+                    </DropdownMenuTrigger>
+                    <DropdownMenuContent align="end" className="w-48">
+                      <DropdownMenuGroup>
+                        <DropdownMenuLabel>Acciones</DropdownMenuLabel>
+                        <DropdownMenuItem>
+                          <FilePen />
+                          Renombrar
+                        </DropdownMenuItem>
+                        <DropdownMenuItem>
+                          <ExternalLink />
+                          Abrir en el navegador
+                        </DropdownMenuItem>
+                      </DropdownMenuGroup>
+                      <DropdownMenuSeparator />
+                      <DropdownMenuItem variant="destructive">
+                        <Trash2 />
+                        Eliminar
+                      </DropdownMenuItem>
+                    </DropdownMenuContent>
+                  </DropdownMenu>
                 </TableCell>
               </TableRow>
             ))}
