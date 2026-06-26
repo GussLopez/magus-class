@@ -10,6 +10,7 @@ import { sileo } from "sileo";
 import { Label } from "@/src/shared/components/ui/label";
 import { Input } from "@/src/shared/components/ui/input";
 import UploadingAnimation from "./UploadingAnimation";
+import { useQueryClient } from "@tanstack/react-query";
 
 export default function CreateFile() {
   const router = useRouter();
@@ -18,6 +19,7 @@ export default function CreateFile() {
   const [title, setTitle] = useState("");
   const [loading, setLoading] = useState(false);
   const [processingProgress, setProcessingProgress] = useState(0);
+  const queryClient = useQueryClient();
 
   const uploadDocument = async (file: File) => {
     try {
@@ -57,6 +59,7 @@ export default function CreateFile() {
       });
 
       setTitle("");
+      queryClient.invalidateQueries({ queryKey: ["user-files"] });
       setOpen(false);
       router.refresh();
     } catch (error) {
