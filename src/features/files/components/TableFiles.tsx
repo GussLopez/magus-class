@@ -4,7 +4,8 @@ import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client"
 import { useQuery } from "@tanstack/react-query"
 import { File } from "../files.types"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/src/shared/components/ui/table"
-import { FileText } from "lucide-react"
+import { EllipsisVertical, FileText } from "lucide-react"
+import { Button } from "@/src/shared/components/ui/button"
 
 export default function TableFiles() {
   const supabase = getSupabaseBrowserClient()
@@ -42,6 +43,7 @@ export default function TableFiles() {
               <TableHead>Nombre del archivo</TableHead>
               <TableHead>Subido por</TableHead>
               <TableHead>Ult. Modificado</TableHead>
+              <TableHead></TableHead>
             </TableRow>
           </TableHeader>
           <TableBody>
@@ -49,12 +51,23 @@ export default function TableFiles() {
               <TableRow key={file.id}>
                 <TableCell className="flex items-center gap-5">
                   <div className="w-fit p-2 rounded-md bg-muted">
-                    <FileText className="size-4.5"/>
+                    <FileText className="size-4.5" />
                   </div>
-                  {file.title}
+                  <div>
+                    <p className="font-medium">{file.title}</p>
+                    <span className="text-xs text-muted-foreground">220 KB docx</span>
+                  </div>
                 </TableCell>
                 <TableCell>{file.file_name}</TableCell>
                 <TableCell>{file.created_at}</TableCell>
+                <TableCell>
+                  <Button
+                    size={'icon'}
+                    variant={'ghost'}
+                  >
+                    <EllipsisVertical />
+                  </Button>
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
