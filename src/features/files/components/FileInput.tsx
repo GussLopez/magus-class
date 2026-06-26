@@ -268,12 +268,12 @@ export default function FileUpload({
       role="complementary"
     >
       <div className="group relative w-full rounded-xl bg-white p-0.5 ring-1 ring-gray-200 dark:bg-black dark:ring-white/10">
-        <div className="absolute inset-x-0 -top-px h-px w-full bg-gradient-to-r from-transparent via-blue-500/20 to-transparent" />
+        <div className="absolute inset-x-0 -top-px h-px w-full bg-linear-to-r from-transparent via-blue-500/20 to-transparent" />
 
-        <div className="relative w-full rounded-[10px] bg-gray-50/50 p-1.5 dark:bg-white/[0.02]">
+        <div className="relative w-full rounded-[10px] bg-gray-50/50 p-1.5 dark:bg-white/2">
           <div
             className={cn(
-              "relative mx-auto w-full overflow-hidden rounded-lg border border-gray-100 bg-white dark:border-white/[0.08] dark:bg-black/50",
+              "relative mx-auto w-full overflow-hidden rounded-lg border border-gray-100 bg-white dark:border-white/8 dark:bg-black/50",
               error ? "border-red-500/50" : ""
             )}
           >
@@ -283,16 +283,16 @@ export default function FileUpload({
                 status === "dragging" ? "opacity-100" : "opacity-0"
               )}
             >
-              <div className="absolute inset-x-0 top-0 h-[20%] bg-gradient-to-b from-blue-500/10 to-transparent" />
-              <div className="absolute inset-x-0 bottom-0 h-[20%] bg-gradient-to-t from-blue-500/10 to-transparent" />
-              <div className="absolute inset-y-0 left-0 w-[20%] bg-gradient-to-r from-blue-500/10 to-transparent" />
-              <div className="absolute inset-y-0 right-0 w-[20%] bg-gradient-to-l from-blue-500/10 to-transparent" />
+              <div className="absolute inset-x-0 top-0 h-[20%] bg-linear-to-b from-blue-500/10 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 h-[20%] bg-linear-to-t from-blue-500/10 to-transparent" />
+              <div className="absolute inset-y-0 left-0 w-[20%] bg-linear-to-r from-blue-500/10 to-transparent" />
+              <div className="absolute inset-y-0 right-0 w-[20%] bg-linear-to-l from-blue-500/10 to-transparent" />
               <div className="absolute inset-[20%] animate-pulse rounded-lg bg-blue-500/5 transition-all duration-300" />
             </div>
 
-            <div className="absolute -top-4 -right-4 h-8 w-8 bg-gradient-to-br from-blue-500/20 to-transparent opacity-0 blur-md transition-opacity duration-500 group-hover:opacity-100" />
+            <div className="absolute -top-4 -right-4 h-8 w-8 bg-linear-to-br from-blue-500/20 to-transparent opacity-0 blur-md transition-opacity duration-500 group-hover:opacity-100" />
 
-            <div className="relative h-[240px]">
+            <div className="relative h-60">
               <AnimatePresence mode="wait">
                 {status === "idle" || status === "dragging" ? (
                   <motion.div
@@ -316,7 +316,7 @@ export default function FileUpload({
 
                     <div className="mb-4 space-y-1.5 text-center">
                       <h3 className="font-semibold text-gray-900 text-lg tracking-tight dark:text-white">
-                        Drag and drop or
+                        Arrastra y suelta o
                       </h3>
                       <p className="text-gray-500 text-xs dark:text-gray-400">
                         {acceptedFileTypes?.length
@@ -334,12 +334,12 @@ export default function FileUpload({
                       onClick={triggerFileInput}
                       type="button"
                     >
-                      <span>Upload File</span>
+                      <span>Sube un Archivo</span>
                       <UploadCloud className="h-4 w-4 transition-transform duration-200 group-hover:scale-110" />
                     </button>
 
                     <p className="mt-3 text-gray-500 text-xs dark:text-gray-400">
-                      or drag and drop your file here
+                      o arrastra y suelta tu pdf aquí
                     </p>
 
                     <input
