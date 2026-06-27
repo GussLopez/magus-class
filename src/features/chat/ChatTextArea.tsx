@@ -2,11 +2,13 @@
 
 import { Button } from "@/src/shared/components/ui/button";
 import { Textarea } from "@/src/shared/components/ui/textarea";
-import { Paperclip, Send } from "lucide-react";
+import { Send } from "lucide-react";
 import { useState } from "react";
+import SelectFileDialog from "./SelectFileDialog";
 
 export default function ChatTextArea() {
   const [text, setText] = useState('');
+  const [selectedFile, setSelectedFile] = useState<string | null>(null);
 
   return (
     <form className="relative">
@@ -17,15 +19,7 @@ export default function ChatTextArea() {
       />
 
       <div className="w-full absolute bottom-0 flex justify-between p-3">
-        <Button
-          size={'icon-lg'}
-          variant={'ghost'}
-          type="button"
-          className="bg-muted hover:bg-muted! text-muted-foreground cursor-pointer"
-        >
-          <Paperclip className="size-4.5" />
-        </Button>
-
+        <SelectFileDialog />
         <Button
           size={'icon-lg'}
           variant={'ghost'}
