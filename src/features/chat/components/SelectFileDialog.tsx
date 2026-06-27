@@ -12,10 +12,11 @@ import { FileText, Paperclip } from "lucide-react";
 import { useState } from "react";
 
 interface SelectFileProps {
-  setSelectedFile: (id: string) => void;
+  selectedFile: File | null;
+  setSelectedFile: (file: File) => void;
 }
 
-export default function SelectFileDialog({ setSelectedFile }: SelectFileProps) {
+export default function SelectFileDialog({ selectedFile, setSelectedFile }: SelectFileProps) {
   const [open, setOpen] = useState(false);
   const supabase = getSupabaseBrowserClient();
   const user = useUserStore(state => state);
@@ -43,12 +44,17 @@ export default function SelectFileDialog({ setSelectedFile }: SelectFileProps) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          size={'icon-lg'}
+          size={selectedFile ? 'sm' : 'icon-lg'}
           variant={'ghost'}
           type="button"
-          className="bg-muted hover:bg-muted! text-muted-foreground cursor-pointer"
+          className={`bg-muted hover:bg-muted! text-muted-foreground cursor-pointer ${
+            selectedFile && 'py-2 h-full bg-primary/10 text-primary'
+          }`}
         >
           <Paperclip className="size-4.5" />
+          {selectedFile && (
+            <span className="text-xs">{selectedFile.title}</span>
+          )}
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-2xl!">
@@ -69,7 +75,7 @@ export default function SelectFileDialog({ setSelectedFile }: SelectFileProps) {
                 <TableRow 
                 key={file.id} 
                 onClick={() => {
-                  setSelectedFile(file.id);
+                  setSelectedFile(file);
                   setOpen(false);
                 }}>
                   <TableCell className="flex items-center gap-5">
