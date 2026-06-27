@@ -8,7 +8,7 @@ import SelectFileDialog from "./SelectFileDialog";
 import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client";
 import { sileo } from "sileo";
 import { useForm } from "react-hook-form";
-import { AskForm, RagResponse } from "./types/chat.types";
+import { AskForm, RagResponse } from "../types/chat.types";
 import ErrorMessage from "@/src/shared/components/ui/ErrorMessage";
 
 export default function ChatTextArea() {

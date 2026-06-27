@@ -1,4 +1,4 @@
-import ChatTextArea from "@/src/features/chat/ChatTextArea";
+import ChatTextArea from "@/src/features/chat/components/ChatTextArea";
 
 export default function ChatPage() {
 
