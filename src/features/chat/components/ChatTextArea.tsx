@@ -10,9 +10,11 @@ import { sileo } from "sileo";
 import { useForm } from "react-hook-form";
 import { AskForm, RagResponse } from "../types/chat.types";
 import ErrorMessage from "@/src/shared/components/ui/ErrorMessage";
+import AITextLoading from "./AiTextLoading";
+import { File } from "@/src/shared/types/file.types";
 
 export default function ChatTextArea() {
-  const [selectedFile, setSelectedFile] = useState<string | null>(null);
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [ragResponse, setRagResponse] = useState<RagResponse | null>(null);
 
@@ -57,7 +59,7 @@ export default function ChatTextArea() {
           Authorization: `Bearer ${session.access_token}`
         },
         body: JSON.stringify({
-          document_id: selectedFile,
+          document_id: selectedFile.id,
           question: formData.question
         })
       });
@@ -109,8 +111,11 @@ export default function ChatTextArea() {
           })}
         />
 
-        <div className="w-full absolute bottom-0 flex justify-between p-3">
-          <SelectFileDialog setSelectedFile={setSelectedFile} />
+        <div className="w-full absolute bottom-0 flex justify-between items-center p-3">
+          <SelectFileDialog
+            selectedFile={selectedFile}
+            setSelectedFile={setSelectedFile}
+          />
 
           <Button
             size={'icon-lg'}
@@ -136,9 +141,14 @@ export default function ChatTextArea() {
       )}
 
       {loading && (
-        <p className="text-sm text-muted-foreground">
-          Consultando documento...
-        </p>
+        <AITextLoading
+          texts={[
+            "Consultando documento...",
+            "Pensando...",
+            "Generando respuesta..."
+          ]}
+          interval={3000}
+        />
       )}
 
       {ragResponse && (
