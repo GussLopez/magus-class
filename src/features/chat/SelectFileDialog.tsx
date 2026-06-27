@@ -2,15 +2,21 @@
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/src/shared/components/ui/avatar";
 import { Button } from "@/src/shared/components/ui/button";
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/src/shared/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/src/shared/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/src/shared/components/ui/table";
 import { useUserStore } from "@/src/shared/store/UserStore";
 import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client";
 import { File } from "@/src/shared/types/file.types";
 import { useQuery } from "@tanstack/react-query";
 import { FileText, Paperclip } from "lucide-react";
+import { useState } from "react";
 
-export default function SelectFileDialog() {
+interface SelectFileProps {
+  setSelectedFile: (id: string) => void;
+}
+
+export default function SelectFileDialog({ setSelectedFile }: SelectFileProps) {
+  const [open, setOpen] = useState(false);
   const supabase = getSupabaseBrowserClient();
   const user = useUserStore(state => state);
   const fetchAllFiles = async () => {
@@ -34,7 +40,7 @@ export default function SelectFileDialog() {
     retry: 1,
   })
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
           size={'icon-lg'}
@@ -48,18 +54,24 @@ export default function SelectFileDialog() {
       <DialogContent className="max-w-2xl!">
         <DialogHeader>
           <DialogTitle>Selecciona un archivo</DialogTitle>
+          <DialogDescription>Selecciona un archivo para empezar a consultar información</DialogDescription>
         </DialogHeader>
         <div>
           <Table>
-            <TableHeader className="hover:bg-white">
-              <TableRow className="hover:bg-white">
+            <TableHeader>
+              <TableRow>
                 <TableHead>Nombre del archivo</TableHead>
                 <TableHead>Subido por</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
               {data?.map((file) => (
-                <TableRow key={file.id}>
+                <TableRow 
+                key={file.id} 
+                onClick={() => {
+                  setSelectedFile(file.id);
+                  setOpen(false);
+                }}>
                   <TableCell className="flex items-center gap-5">
                     <div className="w-fit p-2 rounded-md bg-muted">
                       <FileText className="size-4.5" />
