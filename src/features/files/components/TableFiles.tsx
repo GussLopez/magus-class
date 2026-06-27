@@ -22,7 +22,6 @@ import DeleteFileDialog from "./DeleteFileDialog"
 
 export default function TableFiles() {
   const supabase = getSupabaseBrowserClient();
-  const [deleteOpen, setDeleteOpen] = useState(false);
 
   const fetchAllFiles = async () => {
     const { data } = await supabase.auth.getSession()
@@ -119,13 +118,9 @@ export default function TableFiles() {
                         </DropdownMenuItem>
                       </DropdownMenuGroup>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem
-                        variant="destructive"
-                        onClick={() => setDeleteOpen(true)}
-                      >
-                        <Trash2 />
-                        Eliminar
-                      </DropdownMenuItem>
+                      <DeleteFileDialog
+                        documentId={file.id}
+                      />
                     </DropdownMenuContent>
                   </DropdownMenu>
                 </TableCell>
@@ -135,10 +130,7 @@ export default function TableFiles() {
         </Table>
       </div>
 
-      <DeleteFileDialog
-        open={deleteOpen}
-        setOpen={setDeleteOpen}
-      />
+
     </div>
   )
 }
