@@ -17,9 +17,12 @@ import { Button } from "@/src/shared/components/ui/button"
 import { Tabs, TabsList, TabsTab } from "@/src/shared/components/ui/tabs"
 import { Input } from "@/src/shared/components/ui/input"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/src/shared/components/ui/dropdown-menu"
+import { useState } from "react"
+import DeleteFileDialog from "./DeleteFileDialog"
 
 export default function TableFiles() {
-  const supabase = getSupabaseBrowserClient()
+  const supabase = getSupabaseBrowserClient();
+  const [deleteOpen, setDeleteOpen] = useState(false);
 
   const fetchAllFiles = async () => {
     const { data } = await supabase.auth.getSession()
@@ -116,7 +119,10 @@ export default function TableFiles() {
                         </DropdownMenuItem>
                       </DropdownMenuGroup>
                       <DropdownMenuSeparator />
-                      <DropdownMenuItem variant="destructive">
+                      <DropdownMenuItem
+                        variant="destructive"
+                        onClick={() => setDeleteOpen(true)}
+                      >
                         <Trash2 />
                         Eliminar
                       </DropdownMenuItem>
@@ -128,6 +134,11 @@ export default function TableFiles() {
           </TableBody>
         </Table>
       </div>
+
+      <DeleteFileDialog
+        open={deleteOpen}
+        setOpen={setDeleteOpen}
+      />
     </div>
   )
 }
