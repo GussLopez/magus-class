@@ -2,23 +2,14 @@
 
 import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client"
 import { useQuery } from "@tanstack/react-query"
-import { File } from "../files.types"
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/src/shared/components/ui/table"
-import {
-  EllipsisVertical,
-  ExternalLink,
-  FilePen,
-  FileText,
-  ListFilter,
-  Search,
-  Trash2,
-} from "lucide-react";
+import { EllipsisVertical, ExternalLink, FilePen, FileText, ListFilter, Search } from "lucide-react";
 import { Button } from "@/src/shared/components/ui/button"
 import { Tabs, TabsList, TabsTab } from "@/src/shared/components/ui/tabs"
 import { Input } from "@/src/shared/components/ui/input"
 import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/src/shared/components/ui/dropdown-menu"
-import { useState } from "react"
 import DeleteFileDialog from "./DeleteFileDialog"
+import { File } from "@/src/shared/types/file.types";
 
 export default function TableFiles() {
   const supabase = getSupabaseBrowserClient();
