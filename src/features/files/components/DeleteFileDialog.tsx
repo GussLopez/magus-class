@@ -1,4 +1,4 @@
-import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/src/shared/components/ui/alert-dialog";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from "@/src/shared/components/ui/alert-dialog";
 import { DropdownMenuItem } from "@/src/shared/components/ui/dropdown-menu";
 import { Spinner } from "@/src/shared/components/ui/spinner";
 import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client";
