@@ -88,102 +88,109 @@ export default function ChatTextArea() {
   }
 
   return (
-    <>
-      <h1 className={`text-[32px] font-semibold text-center ${ragResponse || loading && 'hidden'}`}>¿Por donde quiere comenzar?</h1>
-      {ragResponse && (
-        <div className="rounded-xl border border-input bg-muted/30 p-4 space-y-3 ">
-          <div>
-            <p className="font-semibold mb-1">Respuesta</p>
-            <p className="text-sm text-muted-foreground whitespace-pre-wrap">
-              {ragResponse.answer}
-            </p>
+    <div className="flex h-full w-full flex-col">
+      <div className="flex-1 overflow-y-autoa py-6">
+        {!ragResponse && !loading && (
+          <div className="flex h-full flex-col items-center justify-center">
+            <h1 className="mb-6 text-center text-[32px] font-semibold">
+              ¿Por dónde quiere comenzar?
+            </h1>
           </div>
-
-          {ragResponse.sources.length > 0 && (
+        )}
+        {ragResponse && (
+          <div className="rounded-xl border border-input bg-muted/30 p-4 space-y-3 ">
             <div>
-              <p className="font-semibold mb-2">Fuentes</p>
-
-              <div className="space-y-2">
-                {ragResponse.sources.map((source, index) => (
-                  <div
-                    key={`${source.chunk_index}-${index}`}
-                    className="rounded-lg border bg-background p-3"
-                  >
-                    <p className="text-xs font-medium text-muted-foreground mb-1">
-                      Página {source.page_number ?? "N/A"} · Chunk {source.chunk_index}
-                    </p>
-
-                    <p className="text-xs text-muted-foreground line-clamp-3">
-                      {source.content}
-                    </p>
-                  </div>
-                ))}
-              </div>
+              <p className="font-semibold mb-1">Respuesta</p>
+              <p className="text-sm text-muted-foreground whitespace-pre-wrap">
+                {ragResponse.answer}
+              </p>
             </div>
-          )}
-        </div>
-      )}
-      {loading && (
-        <AITextLoading
-          texts={[
-            "Consultando documento...",
-            "Pensando...",
-            "Generando respuesta..."
-          ]}
-          interval={4000}
-          className="text-base justify-start"
-        />
-      )}
-      <div className="space-y-4">
-        <form
-          className={`w-full max-w-3xl ${ragResponse || loading
-              ? "absolute bottom-4 left-1/2 z-20 -translate-x-1/2 px-4"
-              : ""
-            }`}
-          onSubmit={handleSubmit(sendQuestion)}
-        >
-          <div className="relative">
-            <Textarea
-              className="w-full h-30 p-4 border rounded-xl border-input focus-visible:border-muted-foreground/40 resize-none duration-300 bg-background!"
-              placeholder="¿Cuál es tu pregunta de hoy?"
-              disabled={loading}
-              {...register('question', {
-                required: "La pregunta es requerida",
-                minLength: {
-                  value: 3,
-                  message: "La pregunta debe tener al menos 3 caracteres"
-                },
-                maxLength: {
-                  value: 1000,
-                  message: "La pregunta no debe superar los 1000 caracteres"
-                }
-              })}
-            />
 
-            <div className="w-full absolute bottom-0 flex justify-between items-center p-3">
-              <SelectFileDialog
-                selectedFile={selectedFile}
-                setSelectedFile={setSelectedFile}
+            {ragResponse.sources.length > 0 && (
+              <div>
+                <p className="font-semibold mb-2">Fuentes</p>
+
+                <div className="space-y-2">
+                  {ragResponse.sources.map((source, index) => (
+                    <div
+                      key={`${source.chunk_index}-${index}`}
+                      className="rounded-lg border bg-background p-3"
+                    >
+                      <p className="text-xs font-medium text-muted-foreground mb-1">
+                        Página {source.page_number ?? "N/A"} · Chunk {source.chunk_index}
+                      </p>
+
+                      <p className="text-xs text-muted-foreground line-clamp-3">
+                        {source.content}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        )}
+        {loading && (
+          <div className="pt-4">
+            <AITextLoading
+              texts={[
+                "Consultando documento...",
+                "Pensando...",
+                "Generando respuesta..."
+              ]}
+              interval={4000}
+              className="text-base justify-start"
+            />
+          </div>
+        )}
+        <div className="sticky bottom-0 z-20 w-full pb-4 pt-3 backdrop-blur bg-background/95">
+          <form
+            className="w-full"
+            onSubmit={handleSubmit(sendQuestion)}
+          >
+            <div className="relative">
+              <Textarea
+                className="w-full min-h-30 p-4 pr-16 pb-12 border rounded-xl border-input focus-visible:border-muted-foreground/40 resize-none duration-300 bg-background!"
+                placeholder="¿Cuál es tu pregunta de hoy?"
+                disabled={loading}
+                {...register('question', {
+                  required: "La pregunta es requerida",
+                  minLength: {
+                    value: 3,
+                    message: "La pregunta debe tener al menos 3 caracteres"
+                  },
+                  maxLength: {
+                    value: 1000,
+                    message: "La pregunta no debe superar los 1000 caracteres"
+                  }
+                })}
               />
 
-              <Button
-                size={'icon-lg'}
-                variant={'ghost'}
-                type="submit"
-                disabled={loading}
-                className="bg-muted hover:bg-muted! text-muted-foreground cursor-pointer group"
-              >
-                <Send className="size-4.5" />
-              </Button>
+              <div className="w-full absolute bottom-0 flex justify-between items-center p-3">
+                <SelectFileDialog
+                  selectedFile={selectedFile}
+                  setSelectedFile={setSelectedFile}
+                />
+
+                <Button
+                  size={'icon-lg'}
+                  variant={'ghost'}
+                  type="submit"
+                  disabled={loading}
+                  className="bg-muted hover:bg-muted! text-muted-foreground cursor-pointer group"
+                >
+                  <Send className="size-4.5" />
+                </Button>
+              </div>
             </div>
-          </div>
-        </form>
-        {errors.question && (
-          <ErrorMessage>
-            {errors.question.message}
-          </ErrorMessage>
-        )}
+          </form>
+          {errors.question && (
+            <ErrorMessage>
+              {errors.question.message}
+            </ErrorMessage>
+          )}
+        </div>
       </div>
-    </>
+    </div>
   )
 }
