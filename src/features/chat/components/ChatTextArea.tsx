@@ -88,71 +88,10 @@ export default function ChatTextArea() {
   }
 
   return (
-    <div className="space-y-4">
-
-      <form
-        className="relative"
-        onSubmit={handleSubmit(sendQuestion)}
-      >
-        <Textarea
-          className="w-175 h-30 p-4 border rounded-xl border-input focus-visible:border-muted-foreground/40 resize-none duration-300"
-          placeholder="¿Cuál es tu pregunta de hoy?"
-          disabled={loading}
-          {...register('question', {
-            required: "La pregunta es requerida",
-            minLength: {
-              value: 3,
-              message: "La pregunta debe tener al menos 3 caracteres"
-            },
-            maxLength: {
-              value: 1000,
-              message: "La pregunta no debe superar los 1000 caracteres"
-            }
-          })}
-        />
-
-        <div className="w-full absolute bottom-0 flex justify-between items-center p-3">
-          <SelectFileDialog
-            selectedFile={selectedFile}
-            setSelectedFile={setSelectedFile}
-          />
-
-          <Button
-            size={'icon-lg'}
-            variant={'ghost'}
-            type="submit"
-            disabled={loading}
-            className="bg-muted hover:bg-muted! text-muted-foreground cursor-pointer group"
-          >
-            <Send className="size-4.5" />
-          </Button>
-        </div>
-      </form>
-      {errors.question && (
-        <ErrorMessage>
-          {errors.question.message}
-        </ErrorMessage>
-      )}
-
-      {selectedFile && (
-        <p className="text-xs text-muted-foreground">
-          Documento seleccionado correctamente.
-        </p>
-      )}
-
-      {loading && (
-        <AITextLoading
-          texts={[
-            "Consultando documento...",
-            "Pensando...",
-            "Generando respuesta..."
-          ]}
-          interval={3000}
-        />
-      )}
-
+    <>
+      <h1 className={`text-[32px] font-semibold text-center ${ragResponse && 'hidden'}`}>¿Por donde quiere comenzar?</h1>
       {ragResponse && (
-        <div className="rounded-xl border border-input bg-muted/30 p-4 space-y-3">
+        <div className="rounded-xl border border-input bg-muted/30 p-4 space-y-3 mb-40">
           <div>
             <p className="font-semibold mb-1">Respuesta</p>
             <p className="text-sm text-muted-foreground whitespace-pre-wrap">
@@ -184,6 +123,64 @@ export default function ChatTextArea() {
           )}
         </div>
       )}
-    </div>
+      {loading && (
+        <AITextLoading
+          texts={[
+            "Consultando documento...",
+            "Pensando...",
+            "Generando respuesta..."
+          ]}
+          interval={4000}
+          className="text-base justify-start"
+        />
+      )}
+      <div className="space-y-4">
+        <form
+          className={`${ragResponse && 'fixed bottom-2 right-1/2 translate-x-1/2 z-20'}`}
+          onSubmit={handleSubmit(sendQuestion)}
+        >
+          <div className="relative">
+            <Textarea
+              className="w-175 h-30 p-4 border rounded-xl border-input focus-visible:border-muted-foreground/40 resize-none duration-300 bg-background!"
+              placeholder="¿Cuál es tu pregunta de hoy?"
+              disabled={loading}
+              {...register('question', {
+                required: "La pregunta es requerida",
+                minLength: {
+                  value: 3,
+                  message: "La pregunta debe tener al menos 3 caracteres"
+                },
+                maxLength: {
+                  value: 1000,
+                  message: "La pregunta no debe superar los 1000 caracteres"
+                }
+              })}
+            />
+
+            <div className="w-full absolute bottom-0 flex justify-between items-center p-3">
+              <SelectFileDialog
+                selectedFile={selectedFile}
+                setSelectedFile={setSelectedFile}
+              />
+
+              <Button
+                size={'icon-lg'}
+                variant={'ghost'}
+                type="submit"
+                disabled={loading}
+                className="bg-muted hover:bg-muted! text-muted-foreground cursor-pointer group"
+              >
+                <Send className="size-4.5" />
+              </Button>
+            </div>
+          </div>
+        </form>
+        {errors.question && (
+          <ErrorMessage>
+            {errors.question.message}
+          </ErrorMessage>
+        )}
+      </div>
+    </>
   )
 }
