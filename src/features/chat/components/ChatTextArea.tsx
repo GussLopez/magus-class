@@ -89,7 +89,7 @@ export default function ChatTextArea() {
 
   return (
     <>
-      <h1 className={`text-[32px] font-semibold text-center ${ragResponse && 'hidden'}`}>¿Por donde quiere comenzar?</h1>
+      <h1 className={`text-[32px] font-semibold text-center ${ragResponse || loading && 'hidden'}`}>¿Por donde quiere comenzar?</h1>
       {ragResponse && (
         <div className="rounded-xl border border-input bg-muted/30 p-4 space-y-3 mb-40">
           <div>
@@ -136,7 +136,7 @@ export default function ChatTextArea() {
       )}
       <div className="space-y-4">
         <form
-          className={`${ragResponse && 'fixed bottom-2 right-1/2 translate-x-1/2 z-20'}`}
+          className={`${ragResponse || loading && 'fixed bottom-2 right-1/2 translate-x-1/2 z-20'}`}
           onSubmit={handleSubmit(sendQuestion)}
         >
           <div className="relative">
