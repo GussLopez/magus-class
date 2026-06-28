@@ -9,7 +9,6 @@ import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client";
 import { sileo } from "sileo";
 import { useForm } from "react-hook-form";
 import { AskForm, RagResponse } from "../types/chat.types";
-import ErrorMessage from "@/src/shared/components/ui/ErrorMessage";
 import AITextLoading from "./AiTextLoading";
 import { File } from "@/src/shared/types/file.types";
 
@@ -88,10 +87,10 @@ export default function ChatTextArea() {
   }
 
   return (
-    <div className="flex h-full w-full flex-col">
-      <div className="flex-1 overflow-y-autoa py-6">
+    <div className="flex h-full w-full items-center">
+      <div className="flex-1 py-6">
         {!ragResponse && !loading && (
-          <div className="flex h-full flex-col items-center justify-center">
+          <div className="flex flex-col items-center justify-center">
             <h1 className="mb-6 text-center text-[32px] font-semibold">
               ¿Por dónde quiere comenzar?
             </h1>
@@ -143,7 +142,9 @@ export default function ChatTextArea() {
             />
           </div>
         )}
-        <div className="sticky bottom-0 z-20 w-full pb-4 pt-3 backdrop-blur bg-background/95">
+        <div className={`flex z-20 w-full pb-4 pt-3 backdrop-blur bg-background/95 
+          ${ragResponse || loading && 'sticky bottom-0'}`
+        }>
           <form
             className="w-full"
             onSubmit={handleSubmit(sendQuestion)}
@@ -184,11 +185,6 @@ export default function ChatTextArea() {
               </div>
             </div>
           </form>
-          {errors.question && (
-            <ErrorMessage>
-              {errors.question.message}
-            </ErrorMessage>
-          )}
         </div>
       </div>
     </div>
