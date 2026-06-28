@@ -2,7 +2,7 @@
 
 import { Button } from "@/src/shared/components/ui/button";
 import { Textarea } from "@/src/shared/components/ui/textarea";
-import { Send } from "lucide-react";
+import { ChevronRight, Send } from "lucide-react";
 import { useState } from "react";
 import SelectFileDialog from "./SelectFileDialog";
 import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client";
@@ -11,13 +11,15 @@ import { useForm } from "react-hook-form";
 import { AskForm, RagResponse } from "../types/chat.types";
 import AITextLoading from "./AiTextLoading";
 import { File } from "@/src/shared/types/file.types";
+import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/src/shared/components/ui/collapsible";
 
 export default function ChatTextArea() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
   const [ragResponse, setRagResponse] = useState<RagResponse | null>(null);
   const hasConversation = Boolean(ragResponse || loading);
-
+  const [question, setQuestion] = useState<string | null>(null);
+  const [openRef, setOpenRef] = useState(false);
   const supabase = getSupabaseBrowserClient();
 
   const {
@@ -71,6 +73,7 @@ export default function ChatTextArea() {
       }
 
       setRagResponse(data);
+      setQuestion(formData.question);
       reset();
     } catch (error) {
       const message = error instanceof Error
@@ -149,7 +152,7 @@ export default function ChatTextArea() {
         <>
           <div className="flex-1 overflow-y-auto py-6 pb-6">
             {ragResponse && (
-              <div className="space-y-3 rounded-xl border border-input bg-muted/30 p-4">
+              <div className="space-y-3">
                 <div>
                   <p className="mb-1 font-semibold">Respuesta</p>
                   <p className="whitespace-pre-wrap text-sm text-muted-foreground">
@@ -158,26 +161,36 @@ export default function ChatTextArea() {
                 </div>
 
                 {ragResponse.sources.length > 0 && (
-                  <div>
-                    <p className="mb-2 font-semibold">Fuentes</p>
-
-                    <div className="space-y-2">
-                      {ragResponse.sources.map((source, index) => (
-                        <div
-                          key={`${source.chunk_index}-${index}`}
-                          className="rounded-lg border bg-background p-3"
-                        >
-                          <p className="mb-1 text-xs font-medium text-muted-foreground">
-                            Página {source.page_number ?? "N/A"} · Chunk{" "}
-                            {source.chunk_index}
-                          </p>
-
-                          <p className="line-clamp-3 text-xs text-muted-foreground">
-                            {source.content}
-                          </p>
+                  <div className="p-4 border border-input rounded-xl bg-muted/30">
+                    <Collapsible>
+                      <CollapsibleTrigger>
+                        <div className="flex items-center gap-2">
+                          <ChevronRight className="checked:" />
+                          <p className="font-semibold">Fuentes</p>
                         </div>
-                      ))}
-                    </div>
+                      </CollapsibleTrigger>
+                      <CollapsibleContent>
+                        <div className="space-y-2">
+                          {ragResponse.sources.map((source, index) => (
+                            <div
+                              key={`${source.chunk_index}-${index}`}
+                              className="rounded-lg border bg-background p-3"
+                            >
+                              <p className="mb-1 text-xs font-medium text-muted-foreground">
+                                Página {source.page_number ?? "N/A"} · Chunk{" "}
+                                {source.chunk_index}
+                              </p>
+
+                              <p className="line-clamp-3 text-xs text-muted-foreground">
+                                {source.content}
+                              </p>
+                            </div>
+                          ))}
+                        </div>
+                      </CollapsibleContent>
+                    </Collapsible>
+
+
                   </div>
                 )}
               </div>
