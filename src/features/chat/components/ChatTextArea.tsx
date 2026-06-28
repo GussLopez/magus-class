@@ -91,7 +91,7 @@ export default function ChatTextArea() {
     <>
       <h1 className={`text-[32px] font-semibold text-center ${ragResponse || loading && 'hidden'}`}>¿Por donde quiere comenzar?</h1>
       {ragResponse && (
-        <div className="rounded-xl border border-input bg-muted/30 p-4 space-y-3 mb-40">
+        <div className="rounded-xl border border-input bg-muted/30 p-4 space-y-3 ">
           <div>
             <p className="font-semibold mb-1">Respuesta</p>
             <p className="text-sm text-muted-foreground whitespace-pre-wrap">
@@ -136,12 +136,15 @@ export default function ChatTextArea() {
       )}
       <div className="space-y-4">
         <form
-          className={`${ragResponse || loading && 'fixed bottom-2 right-1/2 translate-x-1/2 z-20'}`}
+          className={`w-full max-w-3xl ${ragResponse || loading
+              ? "absolute bottom-4 left-1/2 z-20 -translate-x-1/2 px-4"
+              : ""
+            }`}
           onSubmit={handleSubmit(sendQuestion)}
         >
           <div className="relative">
             <Textarea
-              className="w-175 h-30 p-4 border rounded-xl border-input focus-visible:border-muted-foreground/40 resize-none duration-300 bg-background!"
+              className="w-full h-30 p-4 border rounded-xl border-input focus-visible:border-muted-foreground/40 resize-none duration-300 bg-background!"
               placeholder="¿Cuál es tu pregunta de hoy?"
               disabled={loading}
               {...register('question', {
