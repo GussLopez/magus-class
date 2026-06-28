@@ -1,13 +1,11 @@
-import ChatTextArea from "@/src/features/chat/ChatTextArea";
+import ChatTextArea from "@/src/features/chat/components/ChatTextArea";
 
 export default function ChatPage() {
-
   return (
-    <main className="min-h-full flex flex-col justify-center items-center">
-      <div className="flex flex-col gap-4">
-        <h1 className="text-[32px] font-semibold text-center">¿Por donde quiere comenzar?</h1>
+    <main className="min-h-[calc(100dvh-73px)]">
+      <div className="mx-auto flex h-full w-full max-w-3xl flex-col px-4">
         <ChatTextArea />
       </div>
     </main>
-  )
+  );
 }
