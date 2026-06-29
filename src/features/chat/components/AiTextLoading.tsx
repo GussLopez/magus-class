@@ -61,7 +61,7 @@ export default function AITextLoading({
               backgroundPosition: ["200% center", "-200% center"],
             }}
             className={cn(
-              "flex min-w-max justify-center whitespace-nowrap bg-[length:200%_100%] bg-gradient-to-r from-neutral-950 via-neutral-400 to-neutral-950 bg-clip-text font-medium text-3xl text-transparent dark:from-white dark:via-neutral-600 dark:to-white",
+              "flex min-w-max justify-center whitespace-nowrap bg-size-[200%_100%] bg-linear-to-r from-neutral-950 via-neutral-400 to-neutral-950 bg-clip-text font-medium text-3xl text-transparent dark:from-white dark:via-neutral-600 dark:to-white",
               className
             )}
             exit={{ opacity: 0, y: -20 }}
