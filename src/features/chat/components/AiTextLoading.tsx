@@ -46,7 +46,7 @@ export default function AITextLoading({
   }, [currentTextIndex, interval, texts.length]);
 
   return (
-    <div className="flex items-center justify-center py-8">
+    <div className="flex items-center justify-center">
       <motion.div
         animate={{ opacity: 1 }}
         className="relative w-full px-4 py-2"
