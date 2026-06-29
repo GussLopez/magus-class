@@ -234,17 +234,15 @@ export default function ChatTextArea() {
             )}
 
             {loading && (
-              <div>
-                <AITextLoading
-                  texts={[
-                    "Consultando documento...",
-                    "Pensando...",
-                    "Generando respuesta...",
-                  ]}
-                  interval={4000}
-                  className="justify-start text-base"
-                />
-              </div>
+              <AITextLoading
+                texts={[
+                  "Consultando documento...",
+                  "Pensando...",
+                  "Generando respuesta...",
+                ]}
+                interval={4000}
+                className="justify-start text-base"
+              />
             )}
           </div>
 
