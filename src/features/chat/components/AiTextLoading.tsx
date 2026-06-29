@@ -34,12 +34,16 @@ export default function AITextLoading({
   const [currentTextIndex, setCurrentTextIndex] = useState(0);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrentTextIndex((prevIndex) => (prevIndex + 1) % texts.length);
+    if (currentTextIndex >= texts.length - 1) return;
+
+    const timer = setTimeout(() => {
+      setCurrentTextIndex((prevIndex) =>
+        Math.min(prevIndex + 1, texts.length - 1)
+      );
     }, interval);
 
-    return () => clearInterval(timer);
-  }, [interval, texts.length]);
+    return () => clearTimeout(timer);
+  }, [currentTextIndex, interval, texts.length]);
 
   return (
     <div className="flex items-center justify-center py-8">
