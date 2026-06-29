@@ -228,15 +228,13 @@ export default function ChatTextArea() {
                         </div>
                       </CollapsibleContent>
                     </Collapsible>
-
-
                   </div>
                 )}
               </div>
             )}
 
             {loading && (
-              <div className="pt-4">
+              <div>
                 <AITextLoading
                   texts={[
                     "Consultando documento...",
