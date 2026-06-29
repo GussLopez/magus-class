@@ -156,7 +156,7 @@ export default function TypewriterText({
 
   return (
     <div className="relative mx-auto w-full max-w-4xl">
-      <div className="relative z-10 flex flex-col items-center justify-center text-center">
+      <div className="relative z-10 text-start">
         <motion.div
           animate={{ opacity: 1 }}
           className={cn(className, 'text-black dark:text-white')}
