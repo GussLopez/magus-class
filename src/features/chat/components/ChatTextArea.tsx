@@ -2,7 +2,7 @@
 
 import { Button } from "@/src/shared/components/ui/button";
 import { Textarea } from "@/src/shared/components/ui/textarea";
-import { ChevronRight, Send } from "lucide-react";
+import { CheckIcon, ChevronRight, Copy, Send } from "lucide-react";
 import { useState } from "react";
 import SelectFileDialog from "./SelectFileDialog";
 import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client";
@@ -12,6 +12,7 @@ import { AskForm, RagResponse } from "../types/chat.types";
 import AITextLoading from "./AiTextLoading";
 import { File } from "@/src/shared/types/file.types";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/src/shared/components/ui/collapsible";
+import { cn } from "@/src/shared/lib/utils";
 
 export default function ChatTextArea() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -20,6 +21,8 @@ export default function ChatTextArea() {
   const hasConversation = Boolean(ragResponse || loading);
   const [question, setQuestion] = useState<string | null>(null);
   const [openRef, setOpenRef] = useState(false);
+  const [copied, setCopied] = useState(false);
+
   const supabase = getSupabaseBrowserClient();
 
   const {
@@ -53,7 +56,7 @@ export default function ChatTextArea() {
         })
         return;
       }
-
+      setQuestion(formData.question);
       const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/rag/ask`, {
         method: "POST",
         headers: {
@@ -73,7 +76,6 @@ export default function ChatTextArea() {
       }
 
       setRagResponse(data);
-      setQuestion(formData.question);
       reset();
     } catch (error) {
       const message = error instanceof Error
@@ -89,7 +91,17 @@ export default function ChatTextArea() {
       setLoading(false);
     }
   }
+  const handleCopy = async () => {
+    try {
+      if (!question) return;
 
+      await navigator.clipboard.writeText(question);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 1500);
+    } catch (err) {
+      console.error('Failed to copy text: ', err)
+    }
+  }
   return (
     <div
       className={`flex h-full w-full flex-col ${!hasConversation ? "justify-center" : ""
@@ -151,6 +163,29 @@ export default function ChatTextArea() {
       ) : (
         <>
           <div className="flex-1 overflow-y-auto py-6 pb-6">
+            {question && (
+              <div className="flex flex-col items-end gap-1 group">
+                <div className="p-4 rounded-2xl rounded-tr-none bg-muted">
+                  <p>{question}</p>
+                </div>
+                <div className="h-10">
+                  <Button
+                    variant={'ghost'}
+                    size={'icon'}
+                    className="relative opacity-0 group-hover:opacity-100 transition-all duration-500"
+                    onClick={handleCopy}
+                    disabled={copied}
+                  >
+                    <span className={cn('transition-all', copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0')}>
+                      <CheckIcon className='stroke-green-600 dark:stroke-green-400' />
+                    </span>
+                    <span className={cn('absolute  transition-all', copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100')}>
+                      <Copy className="size-4 " />
+                    </span>
+                  </Button>
+                </div>
+              </div>
+            )}
             {ragResponse && (
               <div className="space-y-3">
                 <div>
@@ -161,16 +196,20 @@ export default function ChatTextArea() {
                 </div>
 
                 {ragResponse.sources.length > 0 && (
-                  <div className="p-4 border border-input rounded-xl bg-muted/30">
-                    <Collapsible>
-                      <CollapsibleTrigger>
+                  <div className="p-2 border border-input rounded-xl bg-muted/30">
+                    <Collapsible open={openRef} onOpenChange={setOpenRef}>
+                      <CollapsibleTrigger asChild>
                         <div className="flex items-center gap-2">
-                          <ChevronRight className="checked:" />
-                          <p className="font-semibold">Fuentes</p>
+                          <ChevronRight
+                            className={` size-4
+                              ${openRef ? 'rotate-90' : ' rotate-0'} transition-transform duration-200
+                            `}
+                          />
+                          <p className="text-sm font-semibold">Fuentes</p>
                         </div>
                       </CollapsibleTrigger>
                       <CollapsibleContent>
-                        <div className="space-y-2">
+                        <div className="space-y-2 mt-3">
                           {ragResponse.sources.map((source, index) => (
                             <div
                               key={`${source.chunk_index}-${index}`}
