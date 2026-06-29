@@ -13,6 +13,7 @@ import AITextLoading from "./AiTextLoading";
 import { File } from "@/src/shared/types/file.types";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/src/shared/components/ui/collapsible";
 import { cn } from "@/src/shared/lib/utils";
+import TypewriterText from "./TypewriterText";
 
 export default function ChatTextArea() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -190,9 +191,13 @@ export default function ChatTextArea() {
               <div className="space-y-3">
                 <div>
                   <p className="mb-1 font-semibold">Respuesta</p>
-                  <p className="whitespace-pre-wrap text-sm text-muted-foreground">
-                    {ragResponse.answer}
-                  </p>
+                  <TypewriterText 
+                    sequences={[{ text: ragResponse.answer, deleteAfter: false }]}
+                    autoLoop={false}
+                    typingSpeed={5}
+                    className="text-sm text-muted-foreground whitespace-pre-wrap text-start"
+                    showTypingIcon={false}
+                  />
                 </div>
 
                 {ragResponse.sources.length > 0 && (
