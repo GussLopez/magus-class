@@ -2,7 +2,17 @@
 
 import { Button } from "@/src/shared/components/ui/button";
 import { Textarea } from "@/src/shared/components/ui/textarea";
-import { BookOpen, CheckCircle, CheckIcon, ChevronRight, CircleCheck, Copy, FileText, RefreshCcw, Send, ThumbsDown, ThumbsUp } from "lucide-react";
+import {
+  BookOpen,
+  CheckIcon,
+  CircleCheck,
+  Copy,
+  FileText,
+  RefreshCcw,
+  Send,
+  ThumbsDown,
+  ThumbsUp,
+} from "lucide-react";
 import { useState } from "react";
 import SelectFileDialog from "./SelectFileDialog";
 import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client";
@@ -11,12 +21,11 @@ import { useForm } from "react-hook-form";
 import { AskForm, RagResponse } from "../types/chat.types";
 import AITextLoading from "./AiTextLoading";
 import { File } from "@/src/shared/types/file.types";
-import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/src/shared/components/ui/collapsible";
 import { cn } from "@/src/shared/lib/utils";
 import TypewriterText from "./TypewriterText";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/src/shared/components/ui/drawer";
 import { DialogHeader, DialogTitle } from "@/src/shared/components/ui/dialog";
-import { Separator } from "@/src/shared/components/ui/separator";
+import RagSourcesDrawer from "./RagSourcesDrawer";
 
 export default function ChatTextArea() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -229,70 +238,9 @@ export default function ChatTextArea() {
                     <RefreshCcw />
                   </Button>
                   {ragResponse.sources.length > 0 && (
-                    <Drawer direction="right">
-                      <DrawerTrigger asChild>
-                        <Button
-                          variant={'ghost'}
-                          size={'sm'}
-                        >
-                          <BookOpen />
-                          Fuentes
-                        </Button>
-                      </DrawerTrigger>
-                      <DrawerContent className="p-4">
-                        <DialogHeader className="mb-2">
-                          <DialogTitle>Fuentes</DialogTitle>
-                        </DialogHeader>
-                        <div className="flex flex-col space-y-2 mt-3">
-                          <div className="flex gap-2 h-12">
-                            <div className="flex h-full w-4 shrink-0 flex-col items-center">
-                              <div className="flex h-5.5 shrink-0 items-center justify-center">
-                                <FileText className="shrink-0 size-3.75 " />
-                              </div>
-                              <div className="bg-input h-full w-px rounded-full"></div>
-                            </div>
-                            <div>
-                              Leyendo documento
-                            </div>
-                          </div>
-                          {ragResponse.sources.map((source, index) => (
-                            <div
-                              key={`${source.chunk_index}-${index}`}
-                              className="flex gap-2 h-fit overflow-clip"
-                            >
-                              <div className="flex h-full w-4 shrink-0 flex-col items-center">
-                                <div className="flex h-5 shrink-0 items-center justify-center">
-                                  <div className="flex h-1.5 w-1.5 rounded-full shrink-0 bg-foreground" />
-                                </div>
-                                <div className="bg-input h-full w-px rounded-full"></div>
-                              </div>
-                              <div className="pb-3">
-                                <p className="mb-2 text-sm font-medium">
-                                  Página {source.page_number ?? "N/A"} · Chunk{" "}
-                                  {source.chunk_index}
-                                </p>
-
-                                <p className="line-clamp-3 text-xs text-muted-foreground">
-                                  {source.content}
-                                </p>
-                              </div>
-                            </div>
-                          ))}
-                          <div className="flex gap-2 h-12">
-                            <div className="flex h-full w-4 shrink-0 flex-col items-center">
-                              <div className="flex h-5.5 shrink-0 items-center justify-center">
-                                <CircleCheck className="shrink-0 size-3.75 " />
-                              </div>
-                            </div>
-                            <div>
-                              <p>Pensado durante 45s</p>
-                              <span className="text-muted-foreground">Listo</span>
-                            </div>
-                          </div>
-                        </div>
-                      </DrawerContent>
-                    </Drawer>
-
+                    <RagSourcesDrawer
+                      sources={ragResponse.sources}
+                    />
                   )}
                 </div>
               </div>
@@ -339,7 +287,6 @@ export default function ChatTextArea() {
                     selectedFile={selectedFile}
                     setSelectedFile={setSelectedFile}
                   />
-
                   <Button
                     size="icon-lg"
                     variant="ghost"
