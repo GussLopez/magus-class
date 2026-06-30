@@ -2,17 +2,7 @@
 
 import { Button } from "@/src/shared/components/ui/button";
 import { Textarea } from "@/src/shared/components/ui/textarea";
-import {
-  BookOpen,
-  CheckIcon,
-  CircleCheck,
-  Copy,
-  FileText,
-  RefreshCcw,
-  Send,
-  ThumbsDown,
-  ThumbsUp,
-} from "lucide-react";
+import { CheckIcon, Copy, RefreshCcw, Send, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useState } from "react";
 import SelectFileDialog from "./SelectFileDialog";
 import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client";
@@ -23,8 +13,6 @@ import AITextLoading from "./AiTextLoading";
 import { File } from "@/src/shared/types/file.types";
 import { cn } from "@/src/shared/lib/utils";
 import TypewriterText from "./TypewriterText";
-import { Drawer, DrawerContent, DrawerTrigger } from "@/src/shared/components/ui/drawer";
-import { DialogHeader, DialogTitle } from "@/src/shared/components/ui/dialog";
 import RagSourcesDrawer from "./RagSourcesDrawer";
 
 export default function ChatTextArea() {
@@ -33,7 +21,6 @@ export default function ChatTextArea() {
   const [ragResponse, setRagResponse] = useState<RagResponse | null>(null);
   const hasConversation = Boolean(ragResponse || loading);
   const [question, setQuestion] = useState<string | null>(null);
-  const [openRef, setOpenRef] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const supabase = getSupabaseBrowserClient();
@@ -238,9 +225,7 @@ export default function ChatTextArea() {
                     <RefreshCcw />
                   </Button>
                   {ragResponse.sources.length > 0 && (
-                    <RagSourcesDrawer
-                      sources={ragResponse.sources}
-                    />
+                    <RagSourcesDrawer sources={ragResponse.sources} />
                   )}
                 </div>
               </div>
