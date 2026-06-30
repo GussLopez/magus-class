@@ -2,7 +2,7 @@
 
 import { Button } from "@/src/shared/components/ui/button";
 import { Textarea } from "@/src/shared/components/ui/textarea";
-import { BookOpen, CheckIcon, ChevronRight, Copy, RefreshCcw, Send, ThumbsDown, ThumbsUp } from "lucide-react";
+import { BookOpen, CheckIcon, ChevronRight, Copy, FileText, RefreshCcw, Send, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useState } from "react";
 import SelectFileDialog from "./SelectFileDialog";
 import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client";
@@ -16,6 +16,7 @@ import { cn } from "@/src/shared/lib/utils";
 import TypewriterText from "./TypewriterText";
 import { Drawer, DrawerContent, DrawerTrigger } from "@/src/shared/components/ui/drawer";
 import { DialogHeader, DialogTitle } from "@/src/shared/components/ui/dialog";
+import { Separator } from "@/src/shared/components/ui/separator";
 
 export default function ChatTextArea() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -231,7 +232,7 @@ export default function ChatTextArea() {
                     <Drawer direction="right">
                       <DrawerTrigger asChild>
                         <Button
-                          variant={'ghost'} 
+                          variant={'ghost'}
                           size={'sm'}
                         >
                           <BookOpen />
@@ -242,20 +243,39 @@ export default function ChatTextArea() {
                         <DialogHeader>
                           <DialogTitle>Fuentes</DialogTitle>
                         </DialogHeader>
-                        <div className="space-y-2 mt-3">
+                        <div className="flex flex-col space-y-2 mt-3">
+                          <div className="flex gap-2 h-12">
+                            <div className="flex h-full w-4 shrink-0 flex-col items-center">
+                              <div className="flex h-5.5 shrink-0 items-center justify-center">
+                                <FileText className="shrink-0 size-3.75 " />
+                              </div>
+                              <div className="bg-input h-full w-px rounded-full"></div>
+                            </div>
+                            <div>
+                              Leyendo documento
+                            </div>
+                          </div>
                           {ragResponse.sources.map((source, index) => (
                             <div
                               key={`${source.chunk_index}-${index}`}
-                              className="rounded-lg border bg-background p-3"
+                              className="flex gap-2 h-fit overflow-clip"
                             >
-                              <p className="mb-1 text-xs font-medium text-muted-foreground">
-                                Página {source.page_number ?? "N/A"} · Chunk{" "}
-                                {source.chunk_index}
-                              </p>
+                              <div className="flex h-full w-4 shrink-0 flex-col items-center">
+                                <div className="flex h-5 shrink-0 items-center justify-center">
+                                  <div className="flex h-1.5 w-1.5 rounded-full shrink-0 bg-foreground" />
+                                </div>
+                                <div className="bg-input h-full w-px rounded-full"></div>
+                              </div>
+                              <div>
+                                <p className="mb-2 text-sm font-medium">
+                                  Página {source.page_number ?? "N/A"} · Chunk{" "}
+                                  {source.chunk_index}
+                                </p>
 
-                              <p className="line-clamp-3 text-xs text-muted-foreground">
-                                {source.content}
-                              </p>
+                                <p className="line-clamp-3 text-xs text-muted-foreground">
+                                  {source.content}
+                                </p>
+                              </div>
                             </div>
                           ))}
                         </div>
