@@ -2,7 +2,7 @@
 
 import { Button } from "@/src/shared/components/ui/button";
 import { Textarea } from "@/src/shared/components/ui/textarea";
-import { BookOpen, CheckIcon, ChevronRight, Copy, FileText, RefreshCcw, Send, ThumbsDown, ThumbsUp } from "lucide-react";
+import { BookOpen, CheckCircle, CheckIcon, ChevronRight, CircleCheck, Copy, FileText, RefreshCcw, Send, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useState } from "react";
 import SelectFileDialog from "./SelectFileDialog";
 import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client";
@@ -240,7 +240,7 @@ export default function ChatTextArea() {
                         </Button>
                       </DrawerTrigger>
                       <DrawerContent className="p-4">
-                        <DialogHeader>
+                        <DialogHeader className="mb-2">
                           <DialogTitle>Fuentes</DialogTitle>
                         </DialogHeader>
                         <div className="flex flex-col space-y-2 mt-3">
@@ -266,7 +266,7 @@ export default function ChatTextArea() {
                                 </div>
                                 <div className="bg-input h-full w-px rounded-full"></div>
                               </div>
-                              <div>
+                              <div className="pb-3">
                                 <p className="mb-2 text-sm font-medium">
                                   Página {source.page_number ?? "N/A"} · Chunk{" "}
                                   {source.chunk_index}
@@ -278,6 +278,17 @@ export default function ChatTextArea() {
                               </div>
                             </div>
                           ))}
+                          <div className="flex gap-2 h-12">
+                            <div className="flex h-full w-4 shrink-0 flex-col items-center">
+                              <div className="flex h-5.5 shrink-0 items-center justify-center">
+                                <CircleCheck className="shrink-0 size-3.75 " />
+                              </div>
+                            </div>
+                            <div>
+                              <p>Pensado durante 45s</p>
+                              <span className="text-muted-foreground">Listo</span>
+                            </div>
+                          </div>
                         </div>
                       </DrawerContent>
                     </Drawer>
