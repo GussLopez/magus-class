@@ -2,7 +2,7 @@
 
 import { Button } from "@/src/shared/components/ui/button";
 import { Textarea } from "@/src/shared/components/ui/textarea";
-import { CheckIcon, ChevronRight, Copy, Send } from "lucide-react";
+import { BookOpen, CheckIcon, ChevronRight, Copy, RefreshCcw, Send, ThumbsDown, ThumbsUp } from "lucide-react";
 import { useState } from "react";
 import SelectFileDialog from "./SelectFileDialog";
 import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client";
@@ -14,6 +14,8 @@ import { File } from "@/src/shared/types/file.types";
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/src/shared/components/ui/collapsible";
 import { cn } from "@/src/shared/lib/utils";
 import TypewriterText from "./TypewriterText";
+import { Drawer, DrawerContent, DrawerTrigger } from "@/src/shared/components/ui/drawer";
+import { DialogHeader, DialogTitle } from "@/src/shared/components/ui/dialog";
 
 export default function ChatTextArea() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -191,7 +193,7 @@ export default function ChatTextArea() {
               <div className="space-y-3">
                 <div>
                   <p className="mb-1 font-semibold">Respuesta</p>
-                  <TypewriterText 
+                  <TypewriterText
                     sequences={[{ text: ragResponse.answer, deleteAfter: false }]}
                     autoLoop={false}
                     typingSpeed={5}
@@ -200,20 +202,46 @@ export default function ChatTextArea() {
                   />
                 </div>
 
-                {ragResponse.sources.length > 0 && (
-                  <div className="p-2 border border-input rounded-xl bg-muted/30">
-                    <Collapsible open={openRef} onOpenChange={setOpenRef}>
-                      <CollapsibleTrigger asChild>
-                        <div className="flex items-center gap-2">
-                          <ChevronRight
-                            className={` size-4
-                              ${openRef ? 'rotate-90' : ' rotate-0'} transition-transform duration-200
-                            `}
-                          />
-                          <p className="text-sm font-semibold">Fuentes</p>
-                        </div>
-                      </CollapsibleTrigger>
-                      <CollapsibleContent>
+                <div className="flex items-center gap-1.5">
+                  <Button
+                    size={'icon'}
+                    variant={'ghost'}
+                  >
+                    <Copy />
+                  </Button>
+                  <Button
+                    size={'icon'}
+                    variant={'ghost'}
+                  >
+                    <ThumbsUp />
+                  </Button>
+                  <Button
+                    size={'icon'}
+                    variant={'ghost'}
+                  >
+                    <ThumbsDown />
+                  </Button>
+                  <Button
+                    size={'icon'}
+                    variant={'ghost'}
+                  >
+                    <RefreshCcw />
+                  </Button>
+                  {ragResponse.sources.length > 0 && (
+                    <Drawer direction="right">
+                      <DrawerTrigger asChild>
+                        <Button
+                          variant={'ghost'} 
+                          size={'sm'}
+                        >
+                          <BookOpen />
+                          Fuentes
+                        </Button>
+                      </DrawerTrigger>
+                      <DrawerContent className="p-4">
+                        <DialogHeader>
+                          <DialogTitle>Fuentes</DialogTitle>
+                        </DialogHeader>
                         <div className="space-y-2 mt-3">
                           {ragResponse.sources.map((source, index) => (
                             <div
@@ -231,10 +259,11 @@ export default function ChatTextArea() {
                             </div>
                           ))}
                         </div>
-                      </CollapsibleContent>
-                    </Collapsible>
-                  </div>
-                )}
+                      </DrawerContent>
+                    </Drawer>
+
+                  )}
+                </div>
               </div>
             )}
 
@@ -294,7 +323,8 @@ export default function ChatTextArea() {
             </form>
           </div>
         </>
-      )}
-    </div>
+      )
+      }
+    </div >
   )
 }
