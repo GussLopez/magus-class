@@ -11,9 +11,9 @@ import { useForm } from "react-hook-form";
 import { AskForm, RagResponse } from "../types/chat.types";
 import AITextLoading from "./AiTextLoading";
 import { File } from "@/src/shared/types/file.types";
-import { cn } from "@/src/shared/lib/utils";
 import TypewriterText from "./TypewriterText";
 import RagSourcesDrawer from "./RagSourcesDrawer";
+import CopyButton from "@/src/shared/components/ui/copy-button";
 
 export default function ChatTextArea() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
@@ -91,17 +91,6 @@ export default function ChatTextArea() {
       setLoading(false);
     }
   }
-  const handleCopy = async () => {
-    try {
-      if (!question) return;
-
-      await navigator.clipboard.writeText(question);
-      setCopied(true);
-      setTimeout(() => setCopied(false), 1500);
-    } catch (err) {
-      console.error('Failed to copy text: ', err)
-    }
-  }
   return (
     <div
       className={`flex h-full w-full flex-col ${!hasConversation ? "justify-center" : ""
@@ -169,20 +158,12 @@ export default function ChatTextArea() {
                   <p>{question}</p>
                 </div>
                 <div className="h-10">
-                  <Button
-                    variant={'ghost'}
-                    size={'icon'}
-                    className="relative opacity-0 group-hover:opacity-100 transition-all duration-500"
-                    onClick={handleCopy}
-                    disabled={copied}
-                  >
-                    <span className={cn('transition-all', copied ? 'scale-100 opacity-100' : 'scale-0 opacity-0')}>
-                      <CheckIcon className='stroke-green-600 dark:stroke-green-400' />
-                    </span>
-                    <span className={cn('absolute  transition-all', copied ? 'scale-0 opacity-0' : 'scale-100 opacity-100')}>
-                      <Copy className="size-4 " />
-                    </span>
-                  </Button>
+                  <CopyButton
+                    copied={copied}
+                    setCopied={setCopied}
+                    text={question}
+                    className="opacity-0 group-hover:opacity-100"
+                  />
                 </div>
               </div>
             )}
@@ -200,12 +181,11 @@ export default function ChatTextArea() {
                 </div>
 
                 <div className="flex items-center gap-1.5">
-                  <Button
-                    size={'icon'}
-                    variant={'ghost'}
-                  >
-                    <Copy />
-                  </Button>
+                  <CopyButton
+                    text={ragResponse.answer}
+                    copied={copied}
+                    setCopied={setCopied}
+                  />
                   <Button
                     size={'icon'}
                     variant={'ghost'}
@@ -251,7 +231,7 @@ export default function ChatTextArea() {
             >
               <div className="relative">
                 <Textarea
-                  className="min-h-30 w-full resize-none rounded-xl border border-input p-4 pr-16 pb-12 shadow-lg duration-300 focus-visible:border-muted-foreground/40"
+                  className="min-h-30 max-h-50 overflow-y-auto w-full resize-none rounded-xl border border-input p-4 pr-16 pb-12 shadow-lg duration-300 focus-visible:border-muted-foreground/40"
                   placeholder="¿Cuál es tu pregunta de hoy?"
                   disabled={loading}
                   {...register("question", {
@@ -268,10 +248,12 @@ export default function ChatTextArea() {
                 />
 
                 <div className="absolute bottom-0 flex w-full items-center justify-between p-3">
-                  <SelectFileDialog
-                    selectedFile={selectedFile}
-                    setSelectedFile={setSelectedFile}
-                  />
+                  <div className="bg-background rounded-lg">
+                    <SelectFileDialog
+                      selectedFile={selectedFile}
+                      setSelectedFile={setSelectedFile}
+                    />
+                  </div>
                   <Button
                     size="icon-lg"
                     variant="ghost"
@@ -286,8 +268,7 @@ export default function ChatTextArea() {
             </form>
           </div>
         </>
-      )
-      }
+      )}
     </div >
   )
 }
