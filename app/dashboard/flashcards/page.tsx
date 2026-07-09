@@ -65,13 +65,9 @@ export default function FlashcardPage() {
 
     } catch (error) {
       console.log(error);
-      const message = error instanceof Error
-        ? error.message
-        : "Error desconocido";
-
       sileo.error({
-        title: "Error",
-        description: message
+        title: "Error al crear los flashcards",
+        autopilot: false
       });
 
     } finally {
