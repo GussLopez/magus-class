@@ -1,4 +1,4 @@
-"use client";
+'use client'
 
 import {
   BookOpen,
@@ -15,9 +15,12 @@ import FeatureCard from "../src/shared/components/FeatureCard";
 import { Button } from "@/src/shared/components/ui/button";
 import Link from "next/link";
 import { ShineBorder } from "@/src/shared/components/ShineBorder";
+import { useTheme } from "next-themes";
 
 
 export default function Page() {
+  const { theme } = useTheme();
+
   return (
     <main className="min-h-screen dark:bg-[#0f172a] overflow-hidden">
       <Header />
@@ -60,7 +63,11 @@ export default function Page() {
         {/* Card */}
         <div className="relative z-20">
           <div className="bg-white dark:bg-gray-900 backdrop-blur-xl p-8 rounded-3xl w-87.5 shadow-2xl z-99 relative">
-            <ShineBorder shineColor={["#8fe3ff", "#8987fa", "#d386f7"]} />
+            <ShineBorder
+              shineColor={theme === 'dark'
+                ? ["#11b8f0", "#3935f2", "#b71cff"]
+                : ["#8fe3ff", "#8987fa", "#d386f7"]}
+            />
             <div className="flex items-center gap-3 mb-6">
               <BrainCircuit className="text-cyan-400" size={35} />
 
