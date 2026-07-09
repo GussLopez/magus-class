@@ -14,6 +14,7 @@ import Footer from "../src/shared/components/Footer";
 import FeatureCard from "../src/shared/components/FeatureCard";
 import { Button } from "@/src/shared/components/ui/button";
 import Link from "next/link";
+import { ShineBorder } from "@/src/shared/components/ShineBorder";
 
 
 export default function Page() {
@@ -58,7 +59,8 @@ export default function Page() {
 
         {/* Card */}
         <div className="relative z-20">
-          <div className="bg-white dark:bg-gray-900 border border-white/10 backdrop-blur-xl p-8 rounded-3xl w-87.5 shadow-2xl z-99">
+          <div className="bg-white dark:bg-gray-900 backdrop-blur-xl p-8 rounded-3xl w-87.5 shadow-2xl z-99 relative">
+            <ShineBorder shineColor={["#8fe3ff", "#8987fa", "#d386f7"]} />
             <div className="flex items-center gap-3 mb-6">
               <BrainCircuit className="text-cyan-400" size={35} />
 
