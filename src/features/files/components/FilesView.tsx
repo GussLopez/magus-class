@@ -71,7 +71,7 @@ export default function FilesView() {
           </div>
         </TabsContent>
         <TabsContent value={'table'}>
-          <TableFiles />
+          {data && <TableFiles data={data} />}
         </TabsContent>
       </div>
     </Tabs>
