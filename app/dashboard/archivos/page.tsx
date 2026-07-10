@@ -1,7 +1,6 @@
 import CreateFile from "@/src/features/files/components/CreateFile"
 import CreateFolder from "@/src/features/files/components/CreateFolder";
-import RecentFiles from "@/src/features/files/components/RecentFiles";
-import TableFiles from "@/src/features/files/components/TableFiles";
+import FilesView from "@/src/features/files/components/FilesView";
 
 export default function ArchivosPage() {
 
@@ -11,9 +10,9 @@ export default function ArchivosPage() {
         <CreateFile />
         <CreateFolder />
       </div>
-      <RecentFiles />
+      {/* <RecentFiles /> */}
 
-      <TableFiles />
+      <FilesView />
     </main>
   )
 }
