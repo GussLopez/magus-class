@@ -8,6 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Paperclip } from "lucide-react";
 import { useState } from "react";
 import { PDFIlustration } from "@/src/shared/components/icons/PdfIlustration";
+import { Skeleton } from "@/src/shared/components/ui/skeleton";
 
 interface SelectFileProps {
   selectedFile: File | null;
@@ -59,7 +60,10 @@ export default function SelectFileDialog({ selectedFile, setSelectedFile }: Sele
           <DialogTitle>Selecciona un archivo</DialogTitle>
           <DialogDescription>Selecciona un archivo para empezar a consultar información</DialogDescription>
         </DialogHeader>
-        <div className="grid grid-cols-4">
+        <div className="grid grid-cols-4 gap-5 max-h-100 overflow-y-auto">
+          {isLoading && [...Array(4)].map((_, i) => (
+            <Skeleton key={i} className="w-full h-40" />
+          ))}
           {data?.map((file) => (
             <div
               key={file.id}
