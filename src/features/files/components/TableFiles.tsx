@@ -28,7 +28,7 @@ export default function TableFiles({ data }: TableFilesProps) {
         {data?.map((file) => (
           <TableRow key={file.id}>
             <TableCell className="flex items-center gap-5">
-              <div className="">
+              <div>
                 <PDFIlustration className="size-8" />
               </div>
               <div>
