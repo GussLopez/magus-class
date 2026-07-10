@@ -1,8 +1,14 @@
 import { PDFIlustration } from "@/src/shared/components/icons/PdfIlustration";
 import { Button } from "@/src/shared/components/ui/button";
 import { EllipsisVertical, Star } from "lucide-react";
+import { formatFileSize } from "../formatSize";
+import { File } from "@/src/shared/types/file.types";
 
-export default function FileCard() {
+interface FileCardProps {
+  file: File
+}
+
+export default function FileCard({ file }: FileCardProps) {
 
   return (
     <div className="p-5 rounded-xl bg-card relative">
@@ -38,7 +44,7 @@ export default function FileCard() {
       <div className="flex justify-between pt-3">
         <div>
           <p className="text-sm">Tamaño:</p>
-          <span className="text-xs text-muted-foreground">2.3 MB</span>
+          <span className="text-xs text-muted-foreground"><p>{formatFileSize(file.file_size_bytes)}</p></span>
         </div>
 
         <div className="w-10 h-10 flex justify-center items-center rounded-xl font-semibold bg-muted">
