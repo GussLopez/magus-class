@@ -1,12 +1,14 @@
 'use client'
 
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Button } from "@/src/shared/components/ui/button";
 import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client";
 import SelectFileDialog from "@/src/features/chat/components/SelectFileDialog";
 import { File } from "@/src/shared/types/file.types";
 import { sileo } from "sileo";
 import { Spinner } from "@/src/shared/components/ui/spinner";
+import { motion } from "motion/react";
+import { ScrollProgress } from "@/src/shared/components/ui/scroll-progress";
 import { PDFIlustration } from "@/src/shared/components/icons/PdfIlustration";
 
 type InfographicCard = {
@@ -19,6 +21,7 @@ export default function FlashcardPage() {
   const supabase = getSupabaseBrowserClient();
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const cardsSectionRef = useRef<HTMLDivElement>(null);
   const [loading, setLoading] = useState(false);
   const [cards, setCards] = useState<InfographicCard[]>([]);
 
@@ -79,7 +82,7 @@ export default function FlashcardPage() {
   }
 
   return (
-    <main className="">
+    <main className="pb-40">
       <div className="flex justify-between">
         <div>
           <h1 className="text-3xl font-semibold">
@@ -93,6 +96,7 @@ export default function FlashcardPage() {
         <div className="flex items-center gap-3">
           <div>
             <SelectFileDialog
+              disabled={loading}
               selectedFile={selectedFile}
               setSelectedFile={setSelectedFile}
             />
@@ -112,48 +116,78 @@ export default function FlashcardPage() {
       </div>
 
       {selectedFile && (
-        <div className="rounded-lg border px-3 py-2 text-sm">
-          <p className="font-medium">{selectedFile.title}</p>
-          <p className="text-xs text-muted-foreground">
-            {selectedFile.file_name}
-          </p>
+        <div className="w-fit flex gap-4 px-3 py-2 text-sm mt-5 rounded-lg border border-input">
+          <div>
+            <PDFIlustration className="size-8" />
+          </div>
+          <div>
+            <p className="font-medium">{selectedFile.title}</p>
+            <p className="text-xs text-muted-foreground">
+              {selectedFile.file_name}
+            </p>
+          </div>
         </div>
       )}
-
       {cards.length > 0 && (
-        <div className="grid gap-5 grid-cols-12 max-w-3xl p-5 border-input shadow-xs rounded-xl bg-accent">
-          {cards.map((card, index) => (
-            <article
-              key={`${card.title}-${index}`}
-              className="rounded-xl border border-muted odd:col-span-8 odd:col-start-5 even:col-span-8 p-5 shadow-xs relative"
-            >
-              <div className="mb-4 flex items-center gap-3 absolute -top-5 -left-5">
-                <div className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary font-bold">
+        <div
+          ref={cardsSectionRef}
+          className="relative mx-auto mt-5 max-w-7xl"
+        >
+          <ScrollProgress target={cardsSectionRef} />
+
+          <div className="grid grid-rows-12 gap-6 gap-y-40 rounded-xl border-input bg-accent p-5 shadow-xs">
+            {cards.map((card, index) => (
+              <motion.article
+                key={`${card.title}-${index}`}
+                initial={{
+                  opacity: 0,
+                  y: 50,
+                  scale: 0.96,
+                }}
+                whileInView={{
+                  opacity: 1,
+                  y: 0,
+                  scale: 1,
+                }}
+                transition={{
+                  duration: 0.5,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                viewport={{
+                  once: true,
+                  amount: 0.25,
+                }}
+                className="relative row-span-2 rounded-xl border border-muted bg-background p-5 shadow-xs odd:col-start-5"
+              >
+                <div className="absolute -left-3 -top-3 z-20 flex size-8 items-center justify-center rounded-full bg-primary font-bold text-white">
                   {index + 1}
                 </div>
 
-                <h2 className="font-semibold leading-tight">
-                  {card.title}
-                </h2>
-              </div>
+                <div className="mb-4 flex items-center gap-3">
+                  <h2 className="font-semibold leading-tight">
+                    {card.title}
+                  </h2>
+                </div>
 
-              <p className="text-sm text-muted-foreground">
-                {card.description}
-              </p>
+                <p className="text-sm text-muted-foreground">
+                  {card.description}
+                </p>
 
-              <ul className="mt-4 space-y-2">
-                {card.points.map((point, pointIndex) => (
-                  <li
-                    key={`${point}-${pointIndex}`}
-                    className="flex gap-2 text-sm"
-                  >
-                    <span className="mt-1 size-1.5 shrink-0 rounded-full bg-primary" />
-                    <span>{point}</span>
-                  </li>
-                ))}
-              </ul>
-            </article>
-          ))}
+                <ul className="mt-4 space-y-2">
+                  {card.points.map((point, pointIndex) => (
+                    <li
+                      key={`${point}-${pointIndex}`}
+                      className="flex gap-2 text-sm"
+                    >
+                      <span className="mt-1 size-1.5 shrink-0 rounded-full bg-primary" />
+
+                      <span>{point}</span>
+                    </li>
+                  ))}
+                </ul>
+              </motion.article>
+            ))}
+          </div>
         </div>
       )}
     </main>
