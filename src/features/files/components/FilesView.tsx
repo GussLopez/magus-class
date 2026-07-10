@@ -64,8 +64,10 @@ export default function FilesView() {
       </div>
       <div className="mt-5">
         <TabsContent value={'card'}>
-          <div className="grid grid-cols-4">
-            <FileCard />
+          <div className="grid grid-cols-4 gap-5">
+            {data?.map((file) => (
+              <FileCard key={file.id} file={file} />
+            ))}
           </div>
         </TabsContent>
         <TabsContent value={'table'}>
