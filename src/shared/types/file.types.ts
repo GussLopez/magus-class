@@ -6,4 +6,5 @@ export type File = {
   file_url: string;
   status: string;
   created_at: string;
+  file_size_bytes: number | null;
 }
