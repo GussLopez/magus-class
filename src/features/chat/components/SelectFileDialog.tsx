@@ -13,9 +13,10 @@ import { Skeleton } from "@/src/shared/components/ui/skeleton";
 interface SelectFileProps {
   selectedFile: File | null;
   setSelectedFile: (file: File) => void;
+  disabled?: boolean;
 }
 
-export default function SelectFileDialog({ selectedFile, setSelectedFile }: SelectFileProps) {
+export default function SelectFileDialog({ selectedFile, setSelectedFile, disabled }: SelectFileProps) {
   const [open, setOpen] = useState(false);
   const supabase = getSupabaseBrowserClient();
   const user = useUserStore(state => state);
@@ -46,6 +47,7 @@ export default function SelectFileDialog({ selectedFile, setSelectedFile }: Sele
           size={selectedFile ? 'sm' : 'icon-lg'}
           variant={'ghost'}
           type="button"
+          disabled={disabled}
           className={`bg-muted hover:bg-muted! text-muted-foreground cursor-pointer ${selectedFile && 'py-2 h-full bg-primary/10 text-primary'
             }`}
         >
@@ -71,7 +73,7 @@ export default function SelectFileDialog({ selectedFile, setSelectedFile }: Sele
                 setSelectedFile(file);
                 setOpen(false);
               }}
-              className="px-3 py-1.5 rounded-xl bg-background relative hover:bg-primary/10 border-3 border-transparent hover:border-primary transition-all cursor-pointer group"
+              className="px-3 py-1.5 rounded-xl bg-muted relative hover:bg-primary/10 border-3 border-transparent hover:border-primary transition-all cursor-pointer group"
             >
               <div className="group-hover:scale-105 transition-transform duration-200">
                 <div className="flex justify-center items-center py-3">
