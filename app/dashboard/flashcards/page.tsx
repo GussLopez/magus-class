@@ -6,10 +6,13 @@ import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client";
 import SelectFileDialog from "@/src/features/chat/components/SelectFileDialog";
 import { File } from "@/src/shared/types/file.types";
 import { sileo } from "sileo";
+import { Spinner } from "@/src/shared/components/ui/spinner";
+import { PDFIlustration } from "@/src/shared/components/icons/PdfIlustration";
 
-type Flashcard = {
-  question: string;
-  answer: string;
+type InfographicCard = {
+  title: string;
+  description: string;
+  points: string[];
 }
 
 export default function FlashcardPage() {
@@ -17,7 +20,7 @@ export default function FlashcardPage() {
 
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
-  const [flashcards, setFlashcards] = useState<Flashcard[]>([]);
+  const [cards, setCards] = useState<InfographicCard[]>([]);
 
   const generateFlashcards = async () => {
     try {
@@ -57,7 +60,7 @@ export default function FlashcardPage() {
         throw new Error(data?.detail || "Error generando flashcards");
       }
 
-      setFlashcards(data.flashcards);
+      setCards(data.cards);
 
       sileo.info({
         title: "Flashcards generadas correctamente"
@@ -77,59 +80,79 @@ export default function FlashcardPage() {
 
   return (
     <main className="">
-      <div>
-        <h1 className="text-3xl font-semibold">
-          Flashcards
-        </h1>
-        <p className="text-muted-foreground">
-          Genera tarjetas de estudio automáticamente desde tus documentos.
-        </p>
-      </div>
+      <div className="flex justify-between">
+        <div>
+          <h1 className="text-3xl font-semibold">
+            Flashcards
+          </h1>
+          <p className="text-muted-foreground">
+            Genera tarjetas de estudio automáticamente desde tus documentos.
+          </p>
+        </div>
 
-      <div className="flex items-center gap-3">
-        <SelectFileDialog
-          selectedFile={selectedFile}
-          setSelectedFile={setSelectedFile}
-        />
-
-        {selectedFile && (
-          <div className="rounded-lg border px-3 py-2 text-sm">
-            <p className="font-medium">{selectedFile.title}</p>
-            <p className="text-xs text-muted-foreground">
-              {selectedFile.file_name}
-            </p>
+        <div className="flex items-center gap-3">
+          <div>
+            <SelectFileDialog
+              selectedFile={selectedFile}
+              setSelectedFile={setSelectedFile}
+            />
           </div>
-        )}
-
-        <Button
-          onClick={generateFlashcards}
-          disabled={loading}
-        >
-          {loading ? "Generando..." : "Generar flashcards"}
-        </Button>
+          <Button
+            onClick={generateFlashcards}
+            disabled={loading}
+          >
+            {loading ? (
+              <>
+                <Spinner />
+                Generando
+              </>
+            ) : "Generar flashcards"}
+          </Button>
+        </div>
       </div>
 
-      {flashcards.length > 0 && (
-        <div className="grid gap-4 md:grid-cols-2">
-          {flashcards.map((flashcard, index) => (
-            <div
-              key={`${flashcard.question}-${index}`}
-              className="rounded-xl border bg-card p-4 shadow-sm"
+      {selectedFile && (
+        <div className="rounded-lg border px-3 py-2 text-sm">
+          <p className="font-medium">{selectedFile.title}</p>
+          <p className="text-xs text-muted-foreground">
+            {selectedFile.file_name}
+          </p>
+        </div>
+      )}
+
+      {cards.length > 0 && (
+        <div className="grid gap-5 grid-cols-12 max-w-3xl p-5 border-input shadow-xs rounded-xl bg-accent">
+          {cards.map((card, index) => (
+            <article
+              key={`${card.title}-${index}`}
+              className="rounded-xl border border-muted odd:col-span-8 odd:col-start-5 even:col-span-8 p-5 shadow-xs relative"
             >
-              <p className="mb-2 text-sm font-semibold text-muted-foreground">
-                Pregunta {index + 1}
+              <div className="mb-4 flex items-center gap-3 absolute -top-5 -left-5">
+                <div className="flex size-10 items-center justify-center rounded-xl bg-primary/10 text-primary font-bold">
+                  {index + 1}
+                </div>
+
+                <h2 className="font-semibold leading-tight">
+                  {card.title}
+                </h2>
+              </div>
+
+              <p className="text-sm text-muted-foreground">
+                {card.description}
               </p>
 
-              <h2 className="font-semibold">
-                {flashcard.question}
-              </h2>
-
-              <div className="mt-4 rounded-lg bg-muted p-3">
-                <p className="text-sm text-muted-foreground">
-                  {flashcard.answer}
-                </p>
-              </div>
-            </div>
+              <ul className="mt-4 space-y-2">
+                {card.points.map((point, pointIndex) => (
+                  <li
+                    key={`${point}-${pointIndex}`}
+                    className="flex gap-2 text-sm"
+                  >
+                    <span className="mt-1 size-1.5 shrink-0 rounded-full bg-primary" />
+                    <span>{point}</span>
+                  </li>
+                ))}
+              </ul>
+            </article>
           ))}
         </div>
       )}
