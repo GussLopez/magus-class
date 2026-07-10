@@ -1,15 +1,13 @@
-'use client'
-
-import { Avatar, AvatarFallback, AvatarImage } from "@/src/shared/components/ui/avatar";
+'use client';
 import { Button } from "@/src/shared/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/src/shared/components/ui/dialog";
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/src/shared/components/ui/table";
 import { useUserStore } from "@/src/shared/store/UserStore";
 import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client";
 import { File } from "@/src/shared/types/file.types";
 import { useQuery } from "@tanstack/react-query";
-import { FileText, Paperclip } from "lucide-react";
+import { Paperclip } from "lucide-react";
 import { useState } from "react";
+import { PDFIlustration } from "@/src/shared/components/icons/PdfIlustration";
 
 interface SelectFileProps {
   selectedFile: File | null;
@@ -47,9 +45,8 @@ export default function SelectFileDialog({ selectedFile, setSelectedFile }: Sele
           size={selectedFile ? 'sm' : 'icon-lg'}
           variant={'ghost'}
           type="button"
-          className={`bg-muted hover:bg-muted! text-muted-foreground cursor-pointer ${
-            selectedFile && 'py-2 h-full bg-primary/10 text-primary'
-          }`}
+          className={`bg-muted hover:bg-muted! text-muted-foreground cursor-pointer ${selectedFile && 'py-2 h-full bg-primary/10 text-primary'
+            }`}
         >
           <Paperclip className="size-4.5" />
           {selectedFile && (
@@ -62,52 +59,27 @@ export default function SelectFileDialog({ selectedFile, setSelectedFile }: Sele
           <DialogTitle>Selecciona un archivo</DialogTitle>
           <DialogDescription>Selecciona un archivo para empezar a consultar información</DialogDescription>
         </DialogHeader>
-        <div>
-          <Table>
-            <TableHeader>
-              <TableRow>
-                <TableHead>Nombre del archivo</TableHead>
-                <TableHead>Subido por</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {data?.map((file) => (
-                <TableRow 
-                key={file.id} 
-                onClick={() => {
-                  setSelectedFile(file);
-                  setOpen(false);
-                }}>
-                  <TableCell className="flex items-center gap-5">
-                    <div className="w-fit p-2 rounded-md bg-muted">
-                      <FileText className="size-4.5" />
-                    </div>
-                    <div>
-                      <p className="font-medium">{file.title}</p>
-                      <span className="text-xs text-muted-foreground">220 KB {file.file_type === 'application/pdf' && 'PDF'}</span>
-                    </div>
-                  </TableCell>
-                  <TableCell className="">
-                    <div className="flex items-center gap-2">
-                      {user.avatar_url && (
-                        <Avatar className="size-7">
-                          <AvatarImage
-                            src={user.avatar_url}
-                            alt="Avatar del usuario"
-                          />
-                          <AvatarFallback>{user.name?.slice(0, 2)}</AvatarFallback>
-                        </Avatar>
-                      )}
-                      <div className="leading-3">
-                        <p className="font-medium">{user.name}</p>
-                        <span className="text-xs text-muted-foreground">{user.email}</span>
-                      </div>
-                    </div>
-                  </TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
+        <div className="grid grid-cols-4">
+          {data?.map((file) => (
+            <div
+              key={file.id}
+              onClick={() => {
+                setSelectedFile(file);
+                setOpen(false);
+              }}
+              className="px-3 py-1.5 rounded-xl bg-background relative hover:bg-primary/10 border-3 border-transparent hover:border-primary transition-all cursor-pointer group"
+            >
+              <div className="group-hover:scale-105 transition-transform duration-200">
+                <div className="flex justify-center items-center py-3">
+                  <PDFIlustration className="size-12" />
+                </div>
+                <div className="text-center pb-5">
+                  <p className="text-xs">{file.title}</p>
+                  <span className="text-xs text-muted-foreground">{file.file_name}</span>
+                </div>
+              </div>
+            </div>
+          ))}
         </div>
       </DialogContent>
     </Dialog>
