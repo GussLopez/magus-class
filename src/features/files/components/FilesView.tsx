@@ -1,18 +1,14 @@
 'use client'
-
 import { getSupabaseBrowserClient } from "@/src/shared/supabase/browser-client"
 import { useQuery } from "@tanstack/react-query"
-import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/src/shared/components/ui/table"
-import { EllipsisVertical, ExternalLink, FilePen, FileText, Grid2X2, Grip, ListFilter, Search, TextAlignJustify } from "lucide-react";
+import { Grid2X2, ListFilter, Search, TextAlignJustify } from "lucide-react";
 import { Button } from "@/src/shared/components/ui/button"
 import { Tabs, TabsContent, TabsList, TabsTab } from "@/src/shared/components/ui/tabs"
 import { Input } from "@/src/shared/components/ui/input"
-import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/src/shared/components/ui/dropdown-menu"
-import DeleteFileDialog from "./DeleteFileDialog"
 import { File } from "@/src/shared/types/file.types";
-import { PDFIlustration } from "@/src/shared/components/icons/PdfIlustration";
 import TableFiles from "./TableFiles";
 import FileCard from "./FileCard";
+import { Skeleton } from "@/src/shared/components/ui/skeleton";
 
 export default function FilesView() {
   const supabase = getSupabaseBrowserClient();
@@ -39,14 +35,13 @@ export default function FilesView() {
   });
 
   return (
-    <Tabs className="mt-8">
+    <Tabs defaultValue={'card'} className="mt-8">
       <h2 className="font-medium">Todos los archivos</h2>
       <div className="flex justify-between mt-3">
         <div>
           <TabsList>
             <TabsTab value={'card'}><Grid2X2 /></TabsTab>
             <TabsTab value={'table'}><TextAlignJustify /></TabsTab>
-            <TabsTab value={'grid'}><Grip /></TabsTab>
           </TabsList>
         </div>
 
@@ -68,6 +63,9 @@ export default function FilesView() {
             {data?.map((file) => (
               <FileCard key={file.id} file={file} />
             ))}
+            {isLoading && [...Array(4)].map((_, i) => (
+            <Skeleton key={i} className="w-full h-47.5" />
+          ))}
           </div>
         </TabsContent>
         <TabsContent value={'table'}>

@@ -13,7 +13,7 @@ interface FileCardProps {
 export default function FileCard({ file }: FileCardProps) {
 
   return (
-    <div className="p-5 rounded-xl bg-card relative">
+    <div className="p-5 rounded-xl bg-card border border-muted relative">
       <div className="absolute top-5 w-full px-5 translate-x-1/2 right-1/2 flex justify-between">
         <div>
           <Button
