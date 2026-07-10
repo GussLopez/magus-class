@@ -7,4 +7,10 @@ export type File = {
   status: string;
   created_at: string;
   file_size_bytes: number | null;
+  user: {
+    id: string;
+    name: string;
+    last_name: string;
+    email: string;
+  }
 }
