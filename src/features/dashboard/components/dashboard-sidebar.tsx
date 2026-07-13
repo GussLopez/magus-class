@@ -56,6 +56,10 @@ const data = {
         {
           title: "Examenes",
           url: "/dashboard/examenes",
+        },
+        {
+          title: "Salas",
+          url: "/dashboard/salas",
         }
       ],
     },
