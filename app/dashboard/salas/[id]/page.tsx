@@ -155,6 +155,8 @@ export default function SalaPage() {
       {showEdit && (
         <EditRoomDialog
           sala={room}
+          open={showEdit}
+          setOpen={setShowEdit}
           onClose={() => setShowEdit(false)}
           onUpdated={cargarSala}
         />
